@@ -1,22 +1,21 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
-#define WIN32_LEAN_AND_MEAN
 
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include <process.h> // For _beginthreadex
-#include "../Common/MeasurementData.hpp"
+#include "../Common/ThreadParams.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
 #define PORT 5059
 #define MAX_CLIENTS 10
 
-void HandleClient(void* clientSocketPtr) {
-    SOCKET clientSocket = *((SOCKET*)clientSocketPtr);
-    free(clientSocketPtr);
+void HandleClient(void* params) {
+    ThreadParams* threadParams = (ThreadParams*)params;
+
+    SOCKET clientSocket = threadParams->clientSocket;
+    Queue* queue = threadParams->queue;
 
     char buffer[1024];
     int bytesReceived = -1;
@@ -34,25 +33,26 @@ void HandleClient(void* clientSocketPtr) {
                 buffer[bytesReceived] = '\0';
 
                 if (sscanf(buffer, "%s %u", new_data->date, &(new_data->measurementValue)) == 2) {
-                    // TO DO: ADD TO QUEUE
-                    ////////////////////////////////////
+                    Enqueue(queue, new_data); // Add received data to the thread-safe queue
                     printf("[Server]: New measurement added into queue\n");
 
                     send(clientSocket, "Measurement added to queue\n", 27, 0);
                 }
                 else {
                     send(clientSocket, "Error parsing the received measurement\n", 40, 0);
+                    free(new_data);
                 }
             }
             else {
                 send(clientSocket, "Error receiving the packet from network\n", 41, 0);
+                free(new_data);
             }
-            free(new_data);
         }
     } while (bytesReceived > 0);
 
     printf("[Server]: Client disconnected\n");
     closesocket(clientSocket);
+    free(params); // Free allocated memory for thread parameters
 }
 
 int main() {
@@ -90,6 +90,10 @@ int main() {
 
     printf("[Server]: Listening on port %d\n", PORT);
 
+    // Create thread-safe queue to save and process Measurement Data
+    Queue queue;
+    InitializeQueue(&queue);
+
     while (1) {
         SOCKET clientSocket;
         struct sockaddr_in clientAddr;
@@ -104,19 +108,30 @@ int main() {
 
         printf("[Server]: Client connected\n");
 
-        // Create a thread to handle the client
-        SOCKET* clientSocketPtr = (SOCKET*)malloc(sizeof(SOCKET));
-
-        if (clientSocketPtr == NULL) {
-            printf("[Server]: Socket wasn't initialized!\n");
-            break;
+        // Create thread parameters
+        ThreadParams* params = (ThreadParams*)malloc(sizeof(ThreadParams));
+        if (params == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            closesocket(clientSocket);
+            closesocket(serverSocket);
+            WSACleanup();
+            return 1;
         }
 
-        *clientSocketPtr = clientSocket;
-        _beginthreadex(NULL, 0, (_beginthreadex_proc_type)HandleClient, clientSocketPtr, 0, NULL);
+        params->clientSocket = clientSocket;
+        params->queue = &queue;
+
+        // Create a thread to handle the client
+        uintptr_t threadID;
+        _beginthreadex(NULL, 0, (_beginthreadex_proc_type)HandleClient, (void*)params, 0, (unsigned int*)&threadID);
     }
 
+    // Clean up queue resources
+    DestroyQueue(&queue);
+
+    // Clean socket and WSA resources
     closesocket(serverSocket);
     WSACleanup();
+
     return 0;
 }

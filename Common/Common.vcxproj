@@ -132,7 +132,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="MeasurementData.hpp" />
+    <ClInclude Include="Node.hpp" />
+    <ClInclude Include="Queue.hpp" />
     <ClInclude Include="RNGState.hpp" />
+    <ClInclude Include="ThreadParams.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
