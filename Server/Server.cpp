@@ -19,7 +19,7 @@ void HandleClient(void* clientSocketPtr) {
     free(clientSocketPtr);
 
     char buffer[1024];
-    int bytesReceived;
+    int bytesReceived = -1;
 
     do {
         // Allocate memory for new_data
@@ -51,7 +51,7 @@ void HandleClient(void* clientSocketPtr) {
         }
     } while (bytesReceived > 0);
 
-    printf("Client disconnected\n");
+    printf("[Server]: Client disconnected\n");
     closesocket(clientSocket);
 }
 
@@ -106,8 +106,13 @@ int main() {
 
         // Create a thread to handle the client
         SOCKET* clientSocketPtr = (SOCKET*)malloc(sizeof(SOCKET));
-        *clientSocketPtr = clientSocket;
 
+        if (clientSocketPtr == NULL) {
+            printf("[Server]: Socket wasn't initialized!\n");
+            break;
+        }
+
+        *clientSocketPtr = clientSocket;
         _beginthreadex(NULL, 0, (_beginthreadex_proc_type)HandleClient, clientSocketPtr, 0, NULL);
     }
 
