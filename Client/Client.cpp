@@ -80,7 +80,17 @@ int main() {
         int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
         if (bytesReceived > 0 && bytesReceived < 1023) {
             buffer[bytesReceived] = '\0';
-            printf("[Loab Balancer]: %s", buffer);
+
+            if (strcmp("Connection accepted\n", buffer)) {
+                printf("[Loab Balancer]: %s", buffer);
+            }
+            else {
+                // close connection because no free threads on server available
+                printf("%s", buffer);
+                closesocket(clientSocket);
+                WSACleanup();
+                return 1;
+            }
         }
 
         // Free the allocated memory

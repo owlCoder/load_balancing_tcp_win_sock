@@ -137,6 +137,9 @@
     <ClInclude Include="RNGState.hpp" />
     <ClInclude Include="ThreadParams.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WorkerThreadParams.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,7 +1,7 @@
 #ifndef WORKER_HPP
 #define WORKER_HPP
 
-#include "../Common/MeasurementData.hpp"
+#include "../Common/WorkerThreadParams.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -29,6 +29,6 @@
   * @return An integer indicating the thread ID upon successful completion of the job,
   *         or -1 if an error occurs during data processing.
   */
-unsigned int Process_Data(MeasurementData* data, unsigned int threadId);
+unsigned int Process_Data(void *params);
 
 #endif // WORKER_HPP

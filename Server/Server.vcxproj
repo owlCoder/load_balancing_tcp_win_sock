@@ -128,14 +128,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ClientHandler.cpp" />
+    <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ThreadSafeQueue.cpp" />
     <ClCompile Include="Worker.cpp" />
+    <ClCompile Include="WorkerHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHandler.hpp" />
+    <ClInclude Include="Configuration.hpp" />
     <ClInclude Include="ThreadSafeQueue.hpp" />
     <ClInclude Include="Worker.hpp" />
+    <ClInclude Include="WorkerHandler.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
