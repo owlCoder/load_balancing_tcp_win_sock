@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define WIN32_LEAN_AND_MEAN
 
@@ -81,15 +82,15 @@ int main() {
         if (bytesReceived > 0 && bytesReceived < 1023) {
             buffer[bytesReceived] = '\0';
 
-            if (strcmp("Connection accepted\n", buffer)) {
+            if (strcmp("Connection accepted\n", buffer) == 0 || strcmp("Measurement added to queue\n", buffer) == 0) {
                 printf("[Loab Balancer]: %s", buffer);
             }
             else {
                 // close connection because no free threads on server available
-                printf("%s", buffer);
-                closesocket(clientSocket);
-                WSACleanup();
-                return 1;
+                printf("[Connection Handler]: %s", buffer);
+                printf("Press any key to close client...");
+                char tmp = getchar();
+                break;
             }
         }
 
