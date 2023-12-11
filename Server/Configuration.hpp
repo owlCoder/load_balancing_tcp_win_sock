@@ -11,7 +11,7 @@
 #include "Worker.hpp"
 
 #define PORT 5059
-#define MAX_THREADS 4
+#define MAX_CLIENTS_THREADS 16
 #define THREAD_BUSY true
 #define THREAD_FREE false
 

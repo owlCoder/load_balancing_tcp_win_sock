@@ -88,9 +88,11 @@ int main() {
             else {
                 // close connection because no free threads on server available
                 printf("[Connection Handler]: %s", buffer);
+                closesocket(clientSocket);
+                WSACleanup();
                 printf("Press any key to close client...");
                 char tmp = getchar();
-                break;
+                return 2;
             }
         }
 

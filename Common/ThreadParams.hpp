@@ -9,6 +9,7 @@ typedef struct ThreadParams {
     Queue* queue;
     int threadId;
     bool* threadPoolClientsStatus;
+    CRITICAL_SECTION cs; /**< The actual Critical Section object. */
 } ThreadParams;
 
 #endif // THREAD_PARAMS_HPP

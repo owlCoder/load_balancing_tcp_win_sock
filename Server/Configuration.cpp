@@ -33,7 +33,7 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
 bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus, SOCKET* serverSocket) {
     InitializeQueue(queue);
 
-    for (int i = 0; i < MAX_THREADS; ++i) {
+    for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {
         threadPoolClientsStatus[i] = THREAD_FREE;
     }
 
@@ -49,8 +49,8 @@ void StartServer() {
     }
 
     Queue queue;
-    HANDLE threadPoolClients[MAX_THREADS];
-    bool threadPoolClientsStatus[MAX_THREADS];
+    HANDLE threadPoolClients[MAX_CLIENTS_THREADS];
+    bool threadPoolClientsStatus[MAX_CLIENTS_THREADS];
     SOCKET serverSocket;
 
     if (!InitializeServer(&queue, threadPoolClients, threadPoolClientsStatus, &serverSocket)) {
@@ -62,7 +62,7 @@ void StartServer() {
     AcceptClientConnections(serverSocket, &queue, threadPoolClients, threadPoolClientsStatus);
 
     // Clean up resources
-    for (int i = 0; i < MAX_THREADS; ++i) {
+    for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {
         CloseHandle(threadPoolClients[i]);
     }
 

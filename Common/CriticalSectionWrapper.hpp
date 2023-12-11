@@ -4,27 +4,20 @@
 #include <winsock2.h>
 
 /**
- * @brief A wrapper struct for handling Critical Section operations.
- */
-typedef struct {
-    CRITICAL_SECTION cs; /**< The actual Critical Section object. */
-} CriticalSectionWrapper;
-
-/**
  * @brief Initializes the Critical Section wrapper object.
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
  */
-void InitializeCriticalSectionWrapper(CriticalSectionWrapper* wrapper) {
-    InitializeCriticalSection(&(wrapper->cs));
+void InitializeCriticalSectionWrapper(CRITICAL_SECTION* cs) {
+    InitializeCriticalSection(cs);
 }
 
 /**
  * @brief Deletes the Critical Section wrapper object.
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
- */void DeleteCriticalSectionWrapper(CriticalSectionWrapper* wrapper) {
-    DeleteCriticalSection(&(wrapper->cs));
+ */void DeleteCriticalSectionWrapper(CRITICAL_SECTION* cs) {
+    DeleteCriticalSection(cs);
 }
 
 /**
@@ -32,16 +25,16 @@ void InitializeCriticalSectionWrapper(CriticalSectionWrapper* wrapper) {
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
  */
-void EnterCriticalSectionWrapper(CriticalSectionWrapper* wrapper) {
-    EnterCriticalSection(&(wrapper->cs));
+void EnterCriticalSectionWrapper(CRITICAL_SECTION *cs) {
+    EnterCriticalSection(cs);
 }
 
 /**
  * @brief Leaves the Critical Section.
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
- */void LeaveCriticalSectionWrapper(CriticalSectionWrapper* wrapper) {
-    LeaveCriticalSection(&(wrapper->cs));
+ */void LeaveCriticalSectionWrapper(CRITICAL_SECTION *cs) {
+    LeaveCriticalSection(cs);
 }
 
 #endif // CRITICAL_SECTION_WRAPPER_HPP
