@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CriticalSectionWrapper.hpp" />
     <ClInclude Include="MeasurementData.hpp" />
     <ClInclude Include="Node.hpp" />
     <ClInclude Include="Queue.hpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="ThreadParams.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CriticalSectionWrapper.cpp" />
     <ClCompile Include="WorkerThreadParams.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -26,10 +26,16 @@
     <ClInclude Include="ThreadParams.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CriticalSectionWrapper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WorkerThreadParams.hpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CriticalSectionWrapper.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

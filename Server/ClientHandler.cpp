@@ -2,6 +2,7 @@
 
 #include "ClientHandler.hpp"
 #include "Configuration.hpp"
+#include "../Common/CriticalSectionWrapper.hpp"
 
 DWORD WINAPI ClientHandlerProc(LPVOID lpParameter) {
     __try {
@@ -28,6 +29,9 @@ void HandleClient(void* params) {
     bool* threadPoolClientsStatus = threadParams->threadPoolClientsStatus;
     int threadId = threadParams->threadId;
 
+    CriticalSectionWrapper wrapper;
+    InitializeCriticalSectionWrapper(&wrapper); // Initialize the critical section
+
     char buffer[1024];
     int bytesReceived = -1;
 
@@ -44,7 +48,10 @@ void HandleClient(void* params) {
                 buffer[bytesReceived] = '\0';
 
                 if (sscanf(buffer, "%s %u", new_data->date, &(new_data->measurementValue)) == 2) {
+                    //EnterCriticalSectionWrapper(&wrapper); // Enter critical section before Enqueue
                     Enqueue(queue, new_data); // Add received data to the thread-safe queue
+                    //LeaveCriticalSectionWrapper(&wrapper); // Leave critical section after Enqueue
+
                     printf("[Server]: New measurement added into queue\n");
 
                     send(clientSocket, "Measurement added to queue\n", 27, 0);
