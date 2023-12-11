@@ -25,6 +25,8 @@ void HandleClient(void* params) {
 
     SOCKET clientSocket = threadParams->clientSocket;
     Queue* queue = threadParams->queue;
+    bool* threadPoolClientsStatus = threadParams->threadPoolClientsStatus;
+    int threadId = threadParams->threadId;
 
     char buffer[1024];
     int bytesReceived = -1;
@@ -61,7 +63,10 @@ void HandleClient(void* params) {
 
     printf("[Server]: Client disconnected\n");
     closesocket(clientSocket);
-    free(params); // Free allocated memory for thread parameters
+
+    // ovde vrv treba neki lock ili critical section zbog stetnog prep;itnja
+    // todo
+    threadPoolClientsStatus[threadId] = THREAD_FREE;
 }
 
 // Function to accept incoming client connections
@@ -87,6 +92,8 @@ void AcceptClientConnections(SOCKET serverSocket, Queue* queue, HANDLE* threadPo
 
         params->clientSocket = clientSocket;
         params->queue = queue;
+        params->threadId = -1; // no thread for client has been allocated
+        params->threadPoolClientsStatus = threadPoolClientsStatus;
 
         int threadIndex = -1;
         for (int i = 0; i < MAX_THREADS; ++i) {
@@ -98,6 +105,7 @@ void AcceptClientConnections(SOCKET serverSocket, Queue* queue, HANDLE* threadPo
         }
 
         if (threadIndex != -1) {
+            params->threadId = threadIndex;
             send(clientSocket, "Connection accepted\n", 21, 0);
             printf("[Server]: Client connected on handler thread id %d\n", threadIndex);
             threadPoolClients[threadIndex] = CreateThread(NULL, 0, ClientHandlerProc, (LPVOID)params, 0, NULL);

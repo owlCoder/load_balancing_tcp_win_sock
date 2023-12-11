@@ -7,6 +7,8 @@
 typedef struct ThreadParams {
     SOCKET clientSocket;
     Queue* queue;
+    int threadId;
+    bool* threadPoolClientsStatus;
 } ThreadParams;
 
 #endif // THREAD_PARAMS_HPP
