@@ -130,10 +130,12 @@
     <ClCompile Include="ClientHandler.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ThreadSafeQueue.cpp" />
+    <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHandler.hpp" />
     <ClInclude Include="ThreadSafeQueue.hpp" />
+    <ClInclude Include="Worker.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

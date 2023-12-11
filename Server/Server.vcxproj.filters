@@ -20,12 +20,18 @@
     <ClCompile Include="ClientHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Worker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ThreadSafeQueue.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ClientHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Worker.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
