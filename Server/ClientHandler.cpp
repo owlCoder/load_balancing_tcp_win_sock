@@ -4,7 +4,7 @@
 #include "Configuration.hpp"
 #include "../Common/CriticalSectionWrapper.hpp"
 
-DWORD WINAPI ClientHandlerProc(LPVOID lpParameter) {
+unsigned int __stdcall ClientHandlerProc(LPVOID lpParameter) {
     __try {
         ThreadParams* params = (ThreadParams*)lpParameter;
         if (params == NULL) {
@@ -76,7 +76,14 @@ void HandleClient(void* params) {
 }
 
 // Function to accept incoming client connections
-void AcceptClientConnections(SOCKET serverSocket, Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus) {
+unsigned int __stdcall AcceptClientConnections(void* param) {
+    AcceptClientThreadParams* params = (AcceptClientThreadParams*)param;
+
+    SOCKET serverSocket = params->serverSocket;
+    Queue* queue = params->queue;
+    HANDLE* threadPoolClients = params->threadPoolClients;
+    bool* threadPoolClientsStatus = params->threadPoolClientsStatus;
+
     while (1) {
         SOCKET clientSocket;
         struct sockaddr_in clientAddr;
@@ -85,21 +92,21 @@ void AcceptClientConnections(SOCKET serverSocket, Queue* queue, HANDLE* threadPo
         if ((clientSocket = accept(serverSocket, (struct sockaddr*)&clientAddr, &clientAddrSize)) == INVALID_SOCKET) {
             fprintf(stderr, "Accept failed with error: %d\n", WSAGetLastError());
             closesocket(serverSocket);
-            return;
+            return 1; // Return error code or terminate the thread accordingly
         }
 
-        ThreadParams* params = (ThreadParams*)malloc(sizeof(ThreadParams));
-        if (params == NULL) {
+        ThreadParams* threadParams = (ThreadParams*)malloc(sizeof(ThreadParams));
+        if (threadParams == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             closesocket(clientSocket);
             closesocket(serverSocket);
-            return;
+            return 1; // Return error code or terminate the thread accordingly
         }
 
-        params->clientSocket = clientSocket;
-        params->queue = queue;
-        params->threadId = -1; // no thread for client has been allocated
-        params->threadPoolClientsStatus = threadPoolClientsStatus;
+        threadParams->clientSocket = clientSocket;
+        threadParams->queue = queue;
+        threadParams->threadId = -1; // no thread for client has been allocated
+        threadParams->threadPoolClientsStatus = threadPoolClientsStatus;
 
         int threadIndex = -1;
         for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {
@@ -111,16 +118,16 @@ void AcceptClientConnections(SOCKET serverSocket, Queue* queue, HANDLE* threadPo
         }
 
         if (threadIndex != -1) {
-            params->threadId = threadIndex;
+            threadParams->threadId = threadIndex;
             send(clientSocket, "Connection accepted\n", 21, 0);
             printf("[Server]: Client connected on handler thread id %d\n", threadIndex);
-            threadPoolClients[threadIndex] = CreateThread(NULL, 0, ClientHandlerProc, (LPVOID)params, 0, NULL);
+            threadPoolClients[threadIndex] = (HANDLE)_beginthreadex(NULL, 0, ClientHandlerProc, (void*)threadParams, 0, NULL);
         }
         else {
             send(clientSocket, "All threads are busy. Connection rejected.\n", 44, 0);
             fprintf(stderr, "[Connection Handler]: All threads are busy. Connection rejected.\n");
             closesocket(clientSocket);
-            free(params);
+            free(threadParams);
         }
     }
 }

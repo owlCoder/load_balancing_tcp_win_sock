@@ -2,7 +2,7 @@
 #include "WorkerHandler.hpp"
 #include "Configuration.hpp"
 
-DWORD WINAPI LoadBalancerHandlerProc(LPVOID lpParameter)
+unsigned int __stdcall LoadBalancerHandlerProc(LPVOID lpParameter)
 {
     __try {
         WorkerThreadParams* params = (WorkerThreadParams*)lpParameter;
@@ -20,22 +20,28 @@ DWORD WINAPI LoadBalancerHandlerProc(LPVOID lpParameter)
     }
 }
 
-void RunLoadBalancer(Queue* queue, HANDLE* threadPoolWorkers, bool* threadPoolWorkersStatus) {
-    while (1) {
-        // Dequeue data if available to pass to worker
-        MeasurementData *data = Dequeue(queue);
+unsigned int __stdcall RunLoadBalancer(void* param) {
+    while (1)
+    {
+        RunLoadBalancerThreadParams* params = (RunLoadBalancerThreadParams*)param;
 
-        if (data != NULL) 
-        {
-            WorkerThreadParams* params = (WorkerThreadParams*)malloc(sizeof(WorkerThreadParams));
-            if (params == NULL) {
+        Queue* queue = params->queue;
+        HANDLE* threadPoolWorkers = params->threadPoolWorkers;
+        bool* threadPoolWorkersStatus = params->threadPoolWorkersStatus;
+
+        // Dequeue data if available to pass to worker
+        MeasurementData* data = Dequeue(queue);
+
+        if (data != nullptr) {
+            WorkerThreadParams* workerParams = (WorkerThreadParams*)malloc(sizeof(WorkerThreadParams));
+            if (workerParams == NULL) {
                 fprintf(stderr, "Memory allocation for workers failed\n");
-                return;
+                return 1; // Return error code or terminate the thread accordingly
             }
 
-            params->data = *data;
-            params->threadId = -1; // no thread for worker has been allocated yet
-            params->threadPoolWorkerStatus = threadPoolWorkersStatus;
+            workerParams->data = *data;
+            workerParams->threadId = -1; // no thread for worker has been allocated yet
+            workerParams->threadPoolWorkerStatus = threadPoolWorkersStatus;
 
             int threadIndex = -1;
             for (int i = 0; i < MAX_WORKERS_THREADS; ++i) {
@@ -47,13 +53,13 @@ void RunLoadBalancer(Queue* queue, HANDLE* threadPoolWorkers, bool* threadPoolWo
             }
 
             if (threadIndex != -1) {
-                params->threadId = threadIndex;
+                workerParams->threadId = threadIndex;
                 printf("[Worker Init]: Created handler with thread id %d for worker to process data\n", threadIndex);
-                threadPoolWorkers[threadIndex] = CreateThread(NULL, 0, LoadBalancerHandlerProc, (LPVOID)params, 0, NULL);
+                threadPoolWorkers[threadIndex] = (HANDLE)_beginthreadex(NULL, 0, LoadBalancerHandlerProc, (void*)workerParams, 0, NULL);
             }
             else {
                 fprintf(stderr, "[Worker Init]: All threads are busy. Maximum capacity used.\n");
-                free(params);
+                free(workerParams);
             }
         }
     }

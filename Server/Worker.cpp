@@ -9,14 +9,15 @@ unsigned int Process_Data(void *params)
 
     srand((unsigned int)time(NULL));
     printf("[Worker %u]: Processing Measurement Data...\n", threadId);
-
+    printf("\n\n\n%u\n", data.measurementValue);
     int start_value = data.measurementValue;
-    data.measurementValue = rand() % 100; // Modify the measurement value (random value here)
+    data.measurementValue = 0;
 
     // Simulate job duration (sleep between 1 to 3.5 seconds)
-    unsigned int sleep_time = (rand() % 2500) + 1000; // Random sleep time between 1 to 3.5 seconds
-    Sleep(sleep_time * 1000); // sleep takes time in microseconds, hence *1000 for milliseconds
-
+    //unsigned int sleep_time = (rand() % 1000) + 1000; // Random sleep time between 1 to 2 seconds
+    //Sleep(sleep_time * 1000); // sleep takes time in microseconds, hence *1000 for milliseconds
+    printf("\n\n\n%u\n", data.measurementValue);
+    Sleep(1000);
     // Initialize the critical section
     InitializeCriticalSectionWrapper(&(workerParams->cs));
 

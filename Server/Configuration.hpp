@@ -17,6 +17,21 @@
 #define THREAD_BUSY true
 #define THREAD_FREE false
 
+// Struct to pass data to the AcceptClientConnections thread
+struct AcceptClientThreadParams {
+    SOCKET serverSocket;
+    Queue* queue;
+    HANDLE* threadPoolClients;
+    bool* threadPoolClientsStatus;
+};
+
+// Struct to pass data to the RunLoadBalancer thread
+struct RunLoadBalancerThreadParams {
+    Queue* queue;
+    HANDLE* threadPoolWorkers;
+    bool* threadPoolWorkersStatus;
+};
+
 /**
  * @brief Initializes the server socket.
  *

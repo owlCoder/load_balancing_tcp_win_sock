@@ -19,7 +19,7 @@
   * @param lpParameter A pointer to the parameter passed to the load balancer handler function.
   * @return A DWORD indicating the status or result of the load balancing operation.
   */
-DWORD WINAPI LoadBalancerHandlerProc(LPVOID lpParameter);
+unsigned int __stdcall LoadBalancerHandlerProc(LPVOID lpParameter);
 
 /**
  * @brief Function to run the load balancer.
@@ -31,6 +31,6 @@ DWORD WINAPI LoadBalancerHandlerProc(LPVOID lpParameter);
  * @param threadPoolWorkers A pointer to the worker thread pool.
  * @param threadPoolWorkersStatus A pointer to the status of worker threads.
  */
-void RunLoadBalancer(Queue* queue, HANDLE* threadPoolWorkers, bool* threadPoolWorkersStatus);
+unsigned int __stdcall RunLoadBalancer(void *params);
 
 #endif // LOAD_BALANCER_HPP

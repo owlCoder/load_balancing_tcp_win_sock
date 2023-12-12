@@ -37,7 +37,7 @@ void HandleClient(void* params);
  * @param lpParameter A pointer to the thread parameters passed to the thread function.
  * @return Returns 0 on successful completion, or an error code indicating an exception occurred.
  */
-DWORD WINAPI ClientHandlerProc(LPVOID lpParameter);
+unsigned int __stdcall ClientHandlerProc(LPVOID lpParameter);
 
 
 /**
@@ -48,6 +48,6 @@ DWORD WINAPI ClientHandlerProc(LPVOID lpParameter);
  * @param[in,out] threadPoolClients The array of threads managing client connections.
  * @param[in,out] threadPoolClientsStatus The array keeping track of thread statuses.
  */
-void AcceptClientConnections(SOCKET serverSocket, Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus);
+unsigned int __stdcall AcceptClientConnections(void *param);
 
 #endif // CLIENT_HANDLER_HPP

@@ -69,10 +69,39 @@ void StartServer() {
     }
 
     // Wait and accept multiple connections
-    AcceptClientConnections(serverSocket, &queue, threadPoolClients, threadPoolClientsStatus);
+    //AcceptClientConnections(serverSocket, &queue, threadPoolClients, threadPoolClientsStatus);
 
     // Run load balancing
-    RunLoadBalancer(&queue, threadPoolWorkers, threadPoolWorkersStatus);
+    //RunLoadBalancer(&queue, threadPoolWorkers, threadPoolWorkersStatus);
+
+    // Create structs with the necessary data for threads
+    AcceptClientThreadParams acceptParams = { serverSocket, &queue, threadPoolClients, threadPoolClientsStatus };
+    RunLoadBalancerThreadParams runParams = { &queue, threadPoolWorkers, threadPoolWorkersStatus };
+
+    // Create threads using beginthreadex
+    HANDLE acceptClientsThread = (HANDLE)_beginthreadex(NULL, 0, AcceptClientConnections, (void*)&acceptParams, 0, NULL);
+    HANDLE runLoadBalancerThread = (HANDLE)_beginthreadex(NULL, 0, RunLoadBalancer, (void*)&runParams, 0, NULL);
+
+    if (acceptClientsThread == 0 || runLoadBalancerThread == 0) {
+        // Error handling: At least one thread creation failed
+        if (acceptClientsThread != 0) {
+            CloseHandle((HANDLE)acceptClientsThread);
+        }
+        if (runLoadBalancerThread != 0) {
+            CloseHandle((HANDLE)runLoadBalancerThread);
+        }
+        // Additional error handling or return based on your application's logic
+    }
+    else {
+        // Wait for threads to finish
+        WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
+        WaitForSingleObject((HANDLE)acceptClientsThread, INFINITE);
+
+        // Clean up resources
+        CloseHandle((HANDLE)acceptClientsThread);
+        CloseHandle((HANDLE)runLoadBalancerThread);
+
+    }
 
     // Clean up resources
     for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {

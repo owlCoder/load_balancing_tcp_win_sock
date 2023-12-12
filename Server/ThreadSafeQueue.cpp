@@ -31,7 +31,7 @@ void Enqueue(Queue* queue, MeasurementData* newData) {
 MeasurementData* Dequeue(Queue* queue) {
     EnterCriticalSection(&queue->lock); // Enter critical section
 
-    if (queue->head == nullptr) {
+    if (queue == NULL || queue->head == nullptr) {
         LeaveCriticalSection(&queue->lock); // Leave critical section
         return nullptr;
     }
