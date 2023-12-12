@@ -1,16 +1,21 @@
 #include "WorkerHandler.hpp"
+#include "../Common/Logger.hpp"
 
 unsigned int Worker(void* args) {
     WorkerThreadParams* workerParams = (WorkerThreadParams*)args;
     unsigned int result = Process_Data(workerParams);
 
     // Handle the result (thread ID or error)
+    char logMessage[100];
+
     if (result != -1) {
-        printf("[Worker %u]: Job done. Returning thread to thread pool...\n", result);
+        snprintf(logMessage, sizeof(logMessage), "[Worker %u]: Job done. Returning thread to thread pool...", result);
     }
     else {
-        printf("[Worker Error Handler]: Error processing data!\n");
+        snprintf(logMessage, sizeof(logMessage), "[Worker Error Handler]: Error processing data!");
     }
+
+    LogToFile("../worker_log.txt", logMessage);
 
     free(workerParams); // Free allocated memory for  worker params
     return result;

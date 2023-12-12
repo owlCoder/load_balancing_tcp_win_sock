@@ -7,14 +7,18 @@ unsigned int Process_Data(void *params)
     MeasurementData data = workerParams->data;
     unsigned int threadId = workerParams->threadId;
 
-    srand((unsigned int)time(NULL));
-    printf("[Worker %u]: Processing Measurement Data...\n", threadId);
+    char logMessage[100];
+    snprintf(logMessage, sizeof(logMessage), "[Worker %u]: Processing Measurement Data...", threadId);
+
+    // Log the message to the file
+    LogToFile("../worker_log.txt", logMessage);
+
     int start_value = data.measurementValue;
     data.measurementValue = 0;
 
     // Simulate job duration (sleep between 1 to 3.5 seconds)
     srand((unsigned int)time(NULL));
-    unsigned int sleep_time = (rand() % 1500) + 1000; // Random sleep time between 1 to 3.5 seconds
+    unsigned int sleep_time = (rand() % 3) + 1; // Random sleep time between 1 to 3 seconds
     Sleep(sleep_time * 1000); // sleep takes time in microseconds, hence *1000 for milliseconds
 
     // Initialize the critical section

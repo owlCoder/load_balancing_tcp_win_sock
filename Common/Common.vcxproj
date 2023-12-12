@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CriticalSectionWrapper.hpp" />
+    <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MeasurementData.hpp" />
     <ClInclude Include="Node.hpp" />
     <ClInclude Include="Queue.hpp" />
