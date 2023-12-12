@@ -46,7 +46,7 @@ void HandleClient(void* params) {
 
                 if (sscanf(buffer, "%s %u", new_data->date, &(new_data->measurementValue)) == 2) {
                     Enqueue(queue, new_data); // Add received data to the thread-safe queue
-                    printf("[Server]: New measurement added into queue\n");
+                    printf("[Data Processer]: New measurement added into queue\n");
                     send(clientSocket, "Measurement added to queue\n", 27, 0);
                 }
                 else {
@@ -61,7 +61,7 @@ void HandleClient(void* params) {
         }
     } while (bytesReceived > 0);
 
-    printf("[Server]: Client disconnected\n");
+    printf("[Client Handler]: Client disconnected\n");
     closesocket(clientSocket);
 
     // Initialize the critical section
@@ -73,7 +73,6 @@ void HandleClient(void* params) {
 
     // Exit critical section after changing
     EnterCriticalSectionWrapper(&(threadParams->cs));
-
 }
 
 // Function to accept incoming client connections

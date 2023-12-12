@@ -34,7 +34,7 @@ bool InitializeServerSocket(SOCKET* serverSocket);
  * @param[out] serverSocket The initialized server socket.
  * @return bool True if the server initialization is successful, otherwise false.
  */
-bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus, SOCKET* serverSocket);
+bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus, HANDLE* threadPoolWorkers, bool* threadPoolWorkersStatus, SOCKET* serverSocket);
 
 /**
  * @brief Starts the server, handles client connections, and manages the thread pool.

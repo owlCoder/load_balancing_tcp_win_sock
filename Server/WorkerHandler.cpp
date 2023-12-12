@@ -1,17 +1,17 @@
 #include "WorkerHandler.hpp"
 
-unsigned int worker(void* args) {
+unsigned int Worker(void* args) {
     WorkerThreadParams* workerParams = (WorkerThreadParams*)args;
     unsigned int result = Process_Data(workerParams);
 
     // Handle the result (thread ID or error)
     if (result != -1) {
-        printf("Job done by Thread ID: %u\n", result);
+        printf("[Worker %u]: Job done. Returning thread to thread pool...\n", result);
     }
     else {
-        printf("Error processing data in worker thread\n");
+        printf("[Worker Error Handler]: Error processing data!\n");
     }
 
-    free(workerParams); // Free allocated memory for parameters
+    free(workerParams); // Free allocated memory for  worker params
     return result;
 }

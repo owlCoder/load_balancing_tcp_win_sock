@@ -20,6 +20,6 @@
   * @param args A pointer to the arguments passed to the worker function.
   * @return An unsigned integer representing the status or result of the worker operation.
   */
-unsigned int worker(void* args);
+unsigned int Worker(void* args);
 
 #endif // WORKER_HANDLER_HPP

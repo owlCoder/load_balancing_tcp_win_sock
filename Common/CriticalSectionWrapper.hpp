@@ -8,7 +8,7 @@
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
  */
-void InitializeCriticalSectionWrapper(CRITICAL_SECTION* cs) {
+inline void InitializeCriticalSectionWrapper(CRITICAL_SECTION* cs) {
     InitializeCriticalSection(cs);
 }
 
@@ -16,7 +16,8 @@ void InitializeCriticalSectionWrapper(CRITICAL_SECTION* cs) {
  * @brief Deletes the Critical Section wrapper object.
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
- */void DeleteCriticalSectionWrapper(CRITICAL_SECTION* cs) {
+ */
+inline void DeleteCriticalSectionWrapper(CRITICAL_SECTION* cs) {
     DeleteCriticalSection(cs);
 }
 
@@ -25,7 +26,7 @@ void InitializeCriticalSectionWrapper(CRITICAL_SECTION* cs) {
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
  */
-void EnterCriticalSectionWrapper(CRITICAL_SECTION *cs) {
+inline void EnterCriticalSectionWrapper(CRITICAL_SECTION *cs) {
     EnterCriticalSection(cs);
 }
 
@@ -33,7 +34,8 @@ void EnterCriticalSectionWrapper(CRITICAL_SECTION *cs) {
  * @brief Leaves the Critical Section.
  *
  * @param wrapper A pointer to the Critical Section wrapper object.
- */void LeaveCriticalSectionWrapper(CRITICAL_SECTION *cs) {
+ */
+inline void LeaveCriticalSectionWrapper(CRITICAL_SECTION *cs) {
     LeaveCriticalSection(cs);
 }
 

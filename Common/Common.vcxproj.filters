@@ -34,8 +34,5 @@
     <ClCompile Include="WorkerThreadParams.hpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="CriticalSectionWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

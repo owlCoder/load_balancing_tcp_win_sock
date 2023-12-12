@@ -139,7 +139,6 @@
     <ClInclude Include="ThreadParams.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CriticalSectionWrapper.cpp" />
     <ClCompile Include="WorkerThreadParams.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
