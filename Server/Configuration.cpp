@@ -30,11 +30,15 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
 }
 
 // Function to initialize the server and thread pool
-bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus, SOCKET* serverSocket) {
+bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus, HANDLE* threadPoolWorkers, bool* threadPoolWorkersStatus, SOCKET* serverSocket) {
     InitializeQueue(queue);
 
     for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {
         threadPoolClientsStatus[i] = THREAD_FREE;
+    }
+
+    for (int i = 0; i < MAX_WORKERS_THREADS; ++i) {
+        threadPoolWorkersStatus[i] = THREAD_FREE;
     }
 
     return InitializeServerSocket(serverSocket);
@@ -53,17 +57,31 @@ void StartServer() {
     bool threadPoolClientsStatus[MAX_CLIENTS_THREADS];
     SOCKET serverSocket;
 
-    if (!InitializeServer(&queue, threadPoolClients, threadPoolClientsStatus, &serverSocket)) {
+    // THREAD POOL FOR WORKERS
+    HANDLE threadPoolWorkers[MAX_WORKERS_THREADS];
+    bool threadPoolWorkersStatus[MAX_WORKERS_THREADS];
+
+    // Multi client connections
+    if (!InitializeServer(&queue, threadPoolClients, threadPoolClientsStatus, threadPoolWorkers, threadPoolWorkersStatus, &serverSocket)) {
         fprintf(stderr, "Server initialization failed\n");
         WSACleanup();
         return;
     }
 
+    // Wait and accept multiple connections
     AcceptClientConnections(serverSocket, &queue, threadPoolClients, threadPoolClientsStatus);
+
+    // Run load balancing
+    RunLoadBalancer(&queue, threadPoolWorkers, threadPoolWorkersStatus);
 
     // Clean up resources
     for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {
         CloseHandle(threadPoolClients[i]);
+    }
+
+    // Clean up resources for workers
+    for (int i = 0; i < MAX_WORKERS_THREADS; ++i) {
+        CloseHandle(threadPoolWorkers[i]);
     }
 
     closesocket(serverSocket);

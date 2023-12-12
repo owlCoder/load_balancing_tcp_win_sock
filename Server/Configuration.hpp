@@ -9,9 +9,11 @@
 #include "../Common/ThreadParams.hpp"
 #include "ClientHandler.hpp"
 #include "Worker.hpp"
+#include "LoadBalancer.hpp"
 
 #define PORT 5059
 #define MAX_CLIENTS_THREADS 16
+#define MAX_WORKERS_THREADS 10
 #define THREAD_BUSY true
 #define THREAD_FREE false
 
