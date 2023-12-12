@@ -1,9 +1,11 @@
 #include "ThreadSafeQueue.hpp"
+#include "../Common/Logger.hpp"
 
 // Initializes a thread-safe queue
 void InitializeQueue(Queue* queue) {
     queue->head = nullptr;
     queue->tail = nullptr;
+    queue->size = 0; // Initialize size to zero
     InitializeCriticalSection(&queue->lock); // Initialize critical section
 }
 
@@ -24,6 +26,8 @@ void Enqueue(Queue* queue, MeasurementData* newData) {
         queue->tail = newNode;
     }
 
+    queue->size++; // Increment size when enqueueing new data
+
     LeaveCriticalSection(&queue->lock); // Leave critical section
 }
 
@@ -31,7 +35,7 @@ void Enqueue(Queue* queue, MeasurementData* newData) {
 MeasurementData* Dequeue(Queue* queue) {
     EnterCriticalSection(&queue->lock); // Enter critical section
 
-    if (queue == NULL || queue->head == nullptr) {
+    if (queue->head == nullptr) {
         LeaveCriticalSection(&queue->lock); // Leave critical section
         return nullptr;
     }
@@ -42,9 +46,19 @@ MeasurementData* Dequeue(Queue* queue) {
     queue->head = queue->head->next;
     delete temp;
 
+    queue->size--; // Decrement size when dequeuing data
+
     LeaveCriticalSection(&queue->lock); // Leave critical section
 
     return data;
+}
+
+// Get the current size of the thread-safe queue
+int QueueSize(Queue* queue) {
+    EnterCriticalSection(&queue->lock); // Enter critical section
+    int size = queue->size;
+    LeaveCriticalSection(&queue->lock); // Leave critical section
+    return size;
 }
 
 // Clears the thread-safe queue and frees allocated memory
@@ -59,6 +73,7 @@ void ClearQueue(Queue* queue) {
     }
 
     queue->tail = nullptr;
+    queue->size = 0; // Reset size to zero after clearing the queue
 
     LeaveCriticalSection(&queue->lock); // Leave critical section
 }

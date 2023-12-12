@@ -54,11 +54,15 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
 
             if (threadIndex != -1) {
                 workerParams->threadId = threadIndex;
-                printf("[Worker Init]: Created handler with thread id %d for worker to process data\n", threadIndex);
+                char logMessage[100];
+                snprintf(logMessage, sizeof(logMessage), "[Worker Init]: Created handler with thread id % d for worker to process data\n", threadIndex);
+                LogToFile("../Logs/worker_log.txt", logMessage);
                 threadPoolWorkers[threadIndex] = (HANDLE)_beginthreadex(NULL, 0, LoadBalancerHandlerProc, (void*)workerParams, 0, NULL);
             }
             else {
-                fprintf(stderr, "[Worker Init]: All threads are busy. Maximum capacity used.\n");
+                char logMessage[100];
+                snprintf(logMessage, sizeof(logMessage), "[Worker Init]: All threads are busy. Maximum capacity used.\n");
+                LogToFile("../Logs/worker_log.txt", logMessage);
                 free(workerParams);
             }
         }

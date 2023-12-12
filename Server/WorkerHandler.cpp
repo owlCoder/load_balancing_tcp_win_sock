@@ -9,13 +9,13 @@ unsigned int Worker(void* args) {
     char logMessage[100];
 
     if (result != -1) {
-        snprintf(logMessage, sizeof(logMessage), "[Worker %u]: Job done. Returning thread to thread pool...", result);
+        snprintf(logMessage, sizeof(logMessage), "[Worker %u]: Job done. Returning thread to thread pool...\n", result);
     }
     else {
-        snprintf(logMessage, sizeof(logMessage), "[Worker Error Handler]: Error processing data!");
+        snprintf(logMessage, sizeof(logMessage), "[Worker Error Handler]: Error processing data!\n");
     }
 
-    LogToFile("../worker_log.txt", logMessage);
+    LogToFile("../Logs/worker_log.txt", logMessage);
 
     free(workerParams); // Free allocated memory for  worker params
     return result;

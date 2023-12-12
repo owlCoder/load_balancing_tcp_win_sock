@@ -55,4 +55,16 @@ void ClearQueue(Queue* queue);
  */
 void DestroyQueue(Queue* queue);
 
+/**
+ * @brief Retrieves the current size of the thread-safe queue.
+ *
+ * This function returns the number of elements present in the thread-safe queue without
+ * traversing through the entire queue. The queue size is maintained and updated whenever
+ * elements are enqueued or dequeued, allowing for efficient retrieval of the current queue size.
+ *
+ * @param queue A pointer to the thread-safe queue.
+ * @return An integer representing the current size of the queue.
+ */
+int QueueSize(Queue* queue);
+
 #endif /* THREAD_SAFE_QUEUE_HPP */
