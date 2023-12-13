@@ -12,7 +12,7 @@
 #include "ClientHandler.hpp"
 #include "Worker.hpp"
 #include "LoadBalancer.hpp"
-#include "../Common//Logger.hpp"
+#include "Menu.hpp"
 
 #define PORT 5059
 #define MAX_CLIENTS_THREADS 16

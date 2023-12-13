@@ -130,7 +130,9 @@
     <ClCompile Include="ClientHandler.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="LoadBalancer.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="StressTests.cpp" />
     <ClCompile Include="ThreadSafeQueue.cpp" />
     <ClCompile Include="Worker.cpp" />
     <ClCompile Include="WorkerHandler.cpp" />
@@ -139,6 +141,8 @@
     <ClInclude Include="ClientHandler.hpp" />
     <ClInclude Include="Configuration.hpp" />
     <ClInclude Include="LoadBalancer.hpp" />
+    <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="StressTests.hpp" />
     <ClInclude Include="ThreadSafeQueue.hpp" />
     <ClInclude Include="Worker.hpp" />
     <ClInclude Include="WorkerHandler.hpp" />

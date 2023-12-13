@@ -39,6 +39,15 @@
     <Filter Include="Source Files\Queue">
       <UniqueIdentifier>{f7b6c5d1-cc17-4fd3-9ac9-20cba057457b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StressTests">
+      <UniqueIdentifier>{ef22102e-a86c-405c-ba3e-1fbddb867fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menu">
+      <UniqueIdentifier>{6bcc9c70-1a91-4b9c-b3a2-88f9dcaee255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Menu">
+      <UniqueIdentifier>{1eef08f5-6bf1-4077-8d6f-a10785cca348}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -62,6 +71,12 @@
     <ClCompile Include="ThreadSafeQueue.cpp">
       <Filter>Source Files\Queue</Filter>
     </ClCompile>
+    <ClCompile Include="StressTests.cpp">
+      <Filter>StressTests</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHandler.hpp">
@@ -81,6 +96,12 @@
     </ClInclude>
     <ClInclude Include="ThreadSafeQueue.hpp">
       <Filter>Header Files\Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="StressTests.hpp">
+      <Filter>StressTests</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,8 @@
 #include "Configuration.hpp"
+#include "Menu.hpp"
 
 int main() 
 {
-    ClearLogFile("../Logs/worker_log.txt");
-    StartServer();
-    return 0;
+	RunDesiredOption(StartServer);
+	return 0;
 }

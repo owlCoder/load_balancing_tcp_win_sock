@@ -46,7 +46,9 @@ void HandleClient(void* params) {
 
                 if (sscanf(buffer, "%s %u", new_data->date, &(new_data->measurementValue)) == 2) {
                     Enqueue(queue, new_data); // Add received data to the thread-safe queue
-                    printf("[Data Processer]: New measurement added into queue\n");
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                    printf("[Data Processer]: Client %d measurement data has been added into queue\n", threadId);
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                     send(clientSocket, "Measurement added to queue\n", 27, 0);
                 }
                 else {
@@ -61,7 +63,9 @@ void HandleClient(void* params) {
         }
     } while (bytesReceived > 0);
 
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
     printf("[Client Handler]: Client disconnected\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     closesocket(clientSocket);
 
     // Initialize the critical section
@@ -90,14 +94,18 @@ unsigned int __stdcall AcceptClientConnections(void* param) {
         int clientAddrSize = sizeof(clientAddr);
 
         if ((clientSocket = accept(serverSocket, (struct sockaddr*)&clientAddr, &clientAddrSize)) == INVALID_SOCKET) {
-            fprintf(stderr, "Accept failed with error: %d\n", WSAGetLastError());
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
+            fprintf(stderr, "[WinSock]: Accept failed with error: %d\n", WSAGetLastError());
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
             closesocket(serverSocket);
             return 1; // Return error code or terminate the thread accordingly
         }
 
         ThreadParams* threadParams = (ThreadParams*)malloc(sizeof(ThreadParams));
         if (threadParams == NULL) {
-            fprintf(stderr, "Memory allocation failed\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
+            fprintf(stderr, "[Client Handler Allocator]: Memory allocation failed\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
             closesocket(clientSocket);
             closesocket(serverSocket);
             return 1; // Return error code or terminate the thread accordingly
@@ -120,12 +128,16 @@ unsigned int __stdcall AcceptClientConnections(void* param) {
         if (threadIndex != -1) {
             threadParams->threadId = threadIndex;
             send(clientSocket, "Connection accepted\n", 21, 0);
-            printf("[Server]: Client connected on handler thread id %d\n", threadIndex);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            printf("\n[Server]: Client connected on handler thread id %d\n", threadIndex);
             threadPoolClients[threadIndex] = (HANDLE)_beginthreadex(NULL, 0, ClientHandlerProc, (void*)threadParams, 0, NULL);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         }
         else {
             send(clientSocket, "All threads are busy. Connection rejected.\n", 44, 0);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
             fprintf(stderr, "[Connection Handler]: All threads are busy. Connection rejected.\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
             closesocket(clientSocket);
             free(threadParams);
         }

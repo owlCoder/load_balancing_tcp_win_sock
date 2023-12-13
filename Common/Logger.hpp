@@ -12,7 +12,9 @@ inline void ClearLogFile(const char* filename) {
     FILE* file = nullptr;
     errno_t err = fopen_s(&file, filename, "w");
     if (err != 0 || file == nullptr) {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
         fprintf(stderr, "Error opening file %s for clearing\n", filename);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         return;
     }
 
