@@ -7,6 +7,8 @@
 #include <ws2tcpip.h>
 #include <stdbool.h>
 #include "../Common/ThreadParams.hpp"
+#include "../Common/AcceptClientThreadParams.hpp"
+#include "../Common/RunLoadBalancerThreadParams.hpp"
 #include "ClientHandler.hpp"
 #include "Worker.hpp"
 #include "LoadBalancer.hpp"
@@ -17,21 +19,6 @@
 #define MAX_WORKERS_THREADS 10
 #define THREAD_BUSY true
 #define THREAD_FREE false
-
-// Struct to pass data to the AcceptClientConnections thread
-struct AcceptClientThreadParams {
-    SOCKET serverSocket;
-    Queue* queue;
-    HANDLE* threadPoolClients;
-    bool* threadPoolClientsStatus;
-};
-
-// Struct to pass data to the RunLoadBalancer thread
-struct RunLoadBalancerThreadParams {
-    Queue* queue;
-    HANDLE* threadPoolWorkers;
-    bool* threadPoolWorkersStatus;
-};
 
 /**
  * @brief Initializes the server socket.

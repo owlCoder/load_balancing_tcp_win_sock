@@ -8,7 +8,7 @@ unsigned int Process_Data(void *params)
     unsigned int threadId = workerParams->threadId;
 
     char logMessage[100];
-    snprintf(logMessage, sizeof(logMessage), "[Worker %u]: Processing Measurement Data...\n", threadId);
+    snprintf(logMessage, sizeof(logMessage), "[Worker %u]: Processing Measurement Data...", threadId);
 
     // Log the message to the file
     LogToFile("../Logs/worker_log.txt", logMessage);

@@ -131,12 +131,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AcceptClientThreadParams.hpp" />
     <ClInclude Include="CriticalSectionWrapper.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MeasurementData.hpp" />
     <ClInclude Include="Node.hpp" />
     <ClInclude Include="Queue.hpp" />
     <ClInclude Include="RNGState.hpp" />
+    <ClInclude Include="RunLoadBalancerThreadParams.hpp" />
     <ClInclude Include="ThreadParams.hpp" />
   </ItemGroup>
   <ItemGroup>
