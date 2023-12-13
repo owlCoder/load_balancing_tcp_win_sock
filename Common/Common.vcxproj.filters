@@ -1,47 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\ThreadParameters">
+      <UniqueIdentifier>{9632c9b9-7da4-42e7-bb2d-2d39df60844f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CriticalSectionWrapper">
+      <UniqueIdentifier>{a6995580-795b-4ea1-b11c-f03b4d4ca2c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logger">
+      <UniqueIdentifier>{9060ed65-8342-44fe-9e84-2d039dcddc92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MeasurementData">
+      <UniqueIdentifier>{b0e57861-9f31-458c-8dc9-016f3e80ab5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Queue">
+      <UniqueIdentifier>{23c7ddc5-8992-4b06-9840-061993723aab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\XORShiftGenerator">
+      <UniqueIdentifier>{f11b9a80-b40c-4770-ad7d-8c7729489902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Node">
+      <UniqueIdentifier>{af37b412-bf78-41a9-be53-e5ae3c20896e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MeasurementData.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RNGState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Queue.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadParams.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CriticalSectionWrapper.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AcceptClientThreadParams.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ThreadParameters</Filter>
     </ClInclude>
     <ClInclude Include="RunLoadBalancerThreadParams.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ThreadParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadParams.hpp">
+      <Filter>Header Files\ThreadParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="CriticalSectionWrapper.hpp">
+      <Filter>Header Files\CriticalSectionWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.hpp">
+      <Filter>Header Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasurementData.hpp">
+      <Filter>Header Files\MeasurementData</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.hpp">
+      <Filter>Header Files\Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="RNGState.hpp">
+      <Filter>Header Files\XORShiftGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.hpp">
+      <Filter>Header Files\Node</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WorkerThreadParams.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ThreadParameters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

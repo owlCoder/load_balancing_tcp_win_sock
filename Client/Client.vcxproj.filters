@@ -9,24 +9,30 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\MeasurementDataGenerator">
+      <UniqueIdentifier>{7ca7f781-d084-4943-88ce-f4774e865f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MeasurementDataGenerator">
+      <UniqueIdentifier>{07035acb-3489-42af-ba31-18b2fe82b808}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GenerateMeasurementDate.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\MeasurementDataGenerator</Filter>
     </ClCompile>
     <ClCompile Include="GenerateMeasurementValue.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\MeasurementDataGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GenerateMeasurementDate.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\MeasurementDataGenerator</Filter>
     </ClInclude>
     <ClInclude Include="GenerateMeasurementValue.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\MeasurementDataGenerator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

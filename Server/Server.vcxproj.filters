@@ -9,48 +9,78 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\Handlers">
+      <UniqueIdentifier>{9885b725-b409-4912-ab95-e91223b52c9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LoadBalancer">
+      <UniqueIdentifier>{801422ff-e768-4c9b-9c5c-f0ccd60919a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Configuration">
+      <UniqueIdentifier>{7633e24d-c82f-4e4c-9e7b-1845bde0f1a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Worker">
+      <UniqueIdentifier>{13b99552-e095-428a-96d5-ce7732bf3e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Queue">
+      <UniqueIdentifier>{30692215-067e-4ca2-b40c-6342c3fde42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Handlers">
+      <UniqueIdentifier>{dd5f5be4-b280-49d3-9b07-a1d2dd21f4c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Configuration">
+      <UniqueIdentifier>{287f85a5-55c6-45ee-aa54-a4806b3099da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LoadBalancer">
+      <UniqueIdentifier>{9b55e696-1f55-4fd0-bc91-6b9ea297cdbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Worker">
+      <UniqueIdentifier>{8dc5fb5f-aa5a-4996-96fb-d087b0d645d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Queue">
+      <UniqueIdentifier>{f7b6c5d1-cc17-4fd3-9ac9-20cba057457b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThreadSafeQueue.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="WorkerHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
     </ClCompile>
     <ClCompile Include="ClientHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Worker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WorkerHandler.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Handlers</Filter>
     </ClCompile>
     <ClCompile Include="Configuration.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Configuration</Filter>
     </ClCompile>
     <ClCompile Include="LoadBalancer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\LoadBalancer</Filter>
+    </ClCompile>
+    <ClCompile Include="Worker.cpp">
+      <Filter>Source Files\Worker</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadSafeQueue.cpp">
+      <Filter>Source Files\Queue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ThreadSafeQueue.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ClientHandler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Worker.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Handlers</Filter>
     </ClInclude>
     <ClInclude Include="WorkerHandler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Configuration.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Handlers</Filter>
     </ClInclude>
     <ClInclude Include="LoadBalancer.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\LoadBalancer</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.hpp">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Worker.hpp">
+      <Filter>Header Files\Worker</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadSafeQueue.hpp">
+      <Filter>Header Files\Queue</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
