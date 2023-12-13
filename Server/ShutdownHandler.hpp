@@ -15,7 +15,7 @@
   * When set to true, it indicates that a shutdown has been requested.
   * This flag is intended to be accessed and modified across multiple files or functions.
   */
-static bool shutdownRequested;
+extern bool shutdownRequested;
 
 /**
  * @brief Sets the value of the shutdown flag.

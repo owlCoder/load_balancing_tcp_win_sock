@@ -28,7 +28,10 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
             char ch = _getch(); // Get the pressed key
             if (ch == 'q' || ch == 'Q') {
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-                printf("\n[Intelligent Resource Manager]: Gracefully shutting down Load Balancer service...");
+                printf("\n[Intelligent Resource Manager]: Gracefully shutting down Load Balancer service");
+                Sleep(1000); printf(".");
+                Sleep(1000); printf(".");
+                Sleep(1000); printf(".");
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                 setShutdownFlag(true);
                 return 0;
@@ -79,6 +82,14 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
             }
         }
     }
+
+    // Print shutdown message
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    printf("\n[Intelligent Resource Manager]: Gracefully shutting down Load Balancer service");
+    Sleep(1000); printf(".");
+    Sleep(1000); printf(".");
+    Sleep(1000); printf(".");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
     return 0;
 }
