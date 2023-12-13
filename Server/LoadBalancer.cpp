@@ -21,8 +21,20 @@ unsigned int __stdcall LoadBalancerHandlerProc(LPVOID lpParameter)
 }
 
 unsigned int __stdcall RunLoadBalancer(void* param) {
-    while (1)
+    while (!shutdownRequested)
     {
+        // Gracefully shutdown load balancer
+        if (_kbhit()) { // Check if a key has been pressed
+            char ch = _getch(); // Get the pressed key
+            if (ch == 'q' || ch == 'Q') {
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                printf("\n[Intelligent Resource Manager]: Gracefully shutting down Load Balancer service...");
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                setShutdownFlag(true);
+                return 0;
+            }
+        }
+
         RunLoadBalancerThreadParams* params = (RunLoadBalancerThreadParams*)param;
 
         Queue* queue = params->queue;
@@ -67,4 +79,6 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
             }
         }
     }
+
+    return 0;
 }

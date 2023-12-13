@@ -77,6 +77,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="ShutdownHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHandler.hpp">
@@ -102,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="Menu.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShutdownHandler.hpp">
+      <Filter>Header Files\Handlers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

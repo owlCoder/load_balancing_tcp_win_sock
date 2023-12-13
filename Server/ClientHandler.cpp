@@ -87,18 +87,41 @@ unsigned int __stdcall AcceptClientConnections(void* param) {
     Queue* queue = params->queue;
     HANDLE* threadPoolClients = params->threadPoolClients;
     bool* threadPoolClientsStatus = params->threadPoolClientsStatus;
+    
+    while (!shutdownRequested) {
+        // Gracefully shutdown load balancer
+        if (_kbhit()) { // Check if a key has been pressed
+            char ch = _getch(); // Get the pressed key
+            if (ch == 'q' || ch == 'Q') {
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                printf("\n[Intelligent Resource Manager]: Gracefully shutting down TCP handler service...");
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                setShutdownFlag(true);
+                return 0;
+            }
+        }
 
-    while (1) {
         SOCKET clientSocket;
         struct sockaddr_in clientAddr;
         int clientAddrSize = sizeof(clientAddr);
 
+        // Attempt to accept an incoming connection
         if ((clientSocket = accept(serverSocket, (struct sockaddr*)&clientAddr, &clientAddrSize)) == INVALID_SOCKET) {
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
-            fprintf(stderr, "[WinSock]: Accept failed with error: %d\n", WSAGetLastError());
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-            closesocket(serverSocket);
-            return 1; // Return error code or terminate the thread accordingly
+            int errorCode = WSAGetLastError();
+
+            if (errorCode == WSAEWOULDBLOCK) {
+                // No incoming connections pending, continue loop or perform other tasks
+                continue;
+            }
+            else {
+                // Handle other errors
+                // Example: Print error message and break the loop or handle accordingly
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
+                fprintf(stderr, "[WinSock]: Accept failed with error: %d\n", errorCode);
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                closesocket(serverSocket);
+                return 1; // Return error code or terminate the thread accordingly
+            }
         }
 
         ThreadParams* threadParams = (ThreadParams*)malloc(sizeof(ThreadParams));
@@ -141,5 +164,8 @@ unsigned int __stdcall AcceptClientConnections(void* param) {
             closesocket(clientSocket);
             free(threadParams);
         }
+
     }
+
+    return 0;
 }

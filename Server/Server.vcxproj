@@ -132,6 +132,7 @@
     <ClCompile Include="LoadBalancer.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ShutdownHandler.cpp" />
     <ClCompile Include="StressTests.cpp" />
     <ClCompile Include="ThreadSafeQueue.cpp" />
     <ClCompile Include="Worker.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Configuration.hpp" />
     <ClInclude Include="LoadBalancer.hpp" />
     <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="ShutdownHandler.hpp" />
     <ClInclude Include="StressTests.hpp" />
     <ClInclude Include="ThreadSafeQueue.hpp" />
     <ClInclude Include="Worker.hpp" />
