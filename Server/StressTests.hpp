@@ -1,5 +1,5 @@
-#ifndef QUEUE_CAPACITY_TEST_HPP
-#define QUEUE_CAPACITY_TEST_HPP
+#ifndef STRESS_TESTS_HPP
+#define STRESS_TESTS_HPP
 
 #include "ThreadSafeQueue.hpp"
 
@@ -14,4 +14,6 @@
  */
 bool RunQueueCapacityTest(const int max_allocations);
 
-#endif // QUEUE_CAPACITY_TEST_HPP
+
+
+#endif // STRESS_TESTS_HPP
