@@ -33,7 +33,8 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
                 printf("\n[Intelligent Resource Manager]: Gracefully shutting down Load Balancer service...");
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
                 printf("\n[Intelligent Resource Manager]: Gracefully shutting down TCP handler service...\n\n");
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);                
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);   
+                ExitThread(0);
                 return 0;
             }
         }

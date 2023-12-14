@@ -101,7 +101,7 @@ unsigned int __stdcall AcceptClientConnections(void* param) {
         if (_kbhit()) { // Check if a key has been pressed
             char ch = _getch(); // Get the pressed key
             if (ch == 'q' || ch == 'Q') {
-                // neki flag
+                ExitThread(0);
                 closesocket(serverSocket);
                 break;
             }

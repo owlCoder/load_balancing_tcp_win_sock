@@ -91,10 +91,10 @@ void StartServer() {
     else {
         // Wait for threads to finish
         WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
-        CloseHandle((HANDLE)acceptClientsThread);
 
         // Clean up resources
         CloseHandle((HANDLE)runLoadBalancerThread);
+        CloseHandle((HANDLE)acceptClientsThread);
 
         // Clean up resources for client threads
              // Clean up resources for client threads
