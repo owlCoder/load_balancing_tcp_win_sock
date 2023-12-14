@@ -8,14 +8,6 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
         return false;
     }
 
-    // Set the socket to non-blocking mode
-    u_long nonBlocking = 1;
-    if (ioctlsocket(*serverSocket, FIONBIO, &nonBlocking) == SOCKET_ERROR) {
-        fprintf(stderr, "Failed to set socket to non-blocking mode: %d\n", WSAGetLastError());
-        closesocket(*serverSocket);
-        return false;
-    }
-
     struct sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(PORT);
@@ -39,8 +31,6 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
 
 // Function to initialize the server and thread pool
 bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus, HANDLE* threadPoolWorkers, bool* threadPoolWorkersStatus, SOCKET* serverSocket) {
-    setShutdownFlag(false); // shutdown request doesnt exist yet
-
     InitializeQueue(queue);
 
     for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {
@@ -97,11 +87,10 @@ void StartServer() {
     }
     else {
         // Wait for threads to finish
-        WaitForSingleObject((HANDLE)acceptClientsThread, INFINITE);
         WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
-        
-        // Clean up resources
         CloseHandle((HANDLE)acceptClientsThread);
+
+        // Clean up resources
         CloseHandle((HANDLE)runLoadBalancerThread);
 
         // Clean up resources for client threads

@@ -31,7 +31,6 @@ inline void LogToFile(const char* filename, const char* message) {
     FILE* file = nullptr;
     errno_t err = fopen_s(&file, filename, "a");
     if (err != 0 || file == nullptr) {
-        fprintf(stderr, "Error opening file %s for logging\n", filename);
         return;
     }
 

@@ -61,8 +61,12 @@ int main() {
 
         // Generate a random measurement value between 1 and 100,000
         struct RNGState rng_state {};
+        struct RNGState rng_state_sleep {};
         rng_state.s[0] = rand() % 1000;
         rng_state.s[1] = rand() % 23233;
+        srand((unsigned int)time(NULL));
+        rng_state_sleep.s[0] = rand() % 123;
+        rng_state_sleep.s[1] = rand() % 321;
 
         int random_value = xorshift128plus(&rng_state) % 100000 + 1;
         new_data->measurementValue = (unsigned int)random_value;
@@ -99,7 +103,7 @@ int main() {
         // Free the allocated memory
         free(new_data);
 
-        Sleep(rand() % 4000 + 1500);
+        Sleep(xorshift128plus(&rng_state_sleep) % 2000 + 1000);
     }
 
     closesocket(clientSocket);

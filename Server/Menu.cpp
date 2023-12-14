@@ -35,7 +35,7 @@ void RunDesiredOption(void (*serverFunction)()) {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
             // Function to run Queue Stress Test
-            if (RunQueueCapacityTest(100000)) {
+            if (RunQueueCapacityTest(100000, 10000)) {
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
                 printf("\n=========================== [Stress Test Checker]: Test Passed ============================\n");
             }

@@ -12,7 +12,6 @@
 #include "ClientHandler.hpp"
 #include "Worker.hpp"
 #include "LoadBalancer.hpp"
-#include "ShutdownHandler.hpp"
 #include "Menu.hpp"
 #include "conio.h"
 

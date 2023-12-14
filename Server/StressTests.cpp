@@ -1,11 +1,9 @@
 #include "StressTests.hpp"
 
-bool RunQueueCapacityTest(const int max_allocations) 
+bool RunQueueCapacityTest(const int max_allocations, const int logFrequency)
 {
     struct Queue queue;
     InitializeQueue(&queue);
-
-    const int logFrequency = 10000; // Log memory usage after every 10 000 allocations
 
     int allocationsCount = 0;
     int deallocationsCount = 0;
@@ -15,7 +13,6 @@ bool RunQueueCapacityTest(const int max_allocations)
     for (int i = 0; i < max_allocations; ++i) {
         struct MeasurementData* data = (struct MeasurementData*)malloc(sizeof(struct MeasurementData));
         if (data == NULL) {
-            // Handle allocation failure
             continue;
         }
 

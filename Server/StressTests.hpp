@@ -12,7 +12,7 @@
  * @param max_allocations The maximum number of allocations to be performed in the test.
  * @return True if the test ran successfully, false otherwise.
  */
-bool RunQueueCapacityTest(const int max_allocations);
+bool RunQueueCapacityTest(const int max_allocations, const int logFrequency);
 
 
 
