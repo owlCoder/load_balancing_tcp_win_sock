@@ -10,6 +10,9 @@
 #include <time.h>
 #include "../Common/Queue.hpp"
 #include "ThreadSafeQueue.hpp"
+#include "../Common/BandwidthThreadParams.hpp"
+
+#define RTU_VALUE_SECONDS 15
 
 /**
  * @file BandwidthCalculator.hpp

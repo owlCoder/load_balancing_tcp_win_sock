@@ -13,6 +13,7 @@ typedef struct Queue {
     Node* tail;             // Pointer to the tail of the queue
     CRITICAL_SECTION lock;  // Critical section for synchronization
     int size;               // Size of the queue
+    long int total;         // Total size of put elements in the queue
     int shutdown;           // Shutdown flag to stop processing data
 } Queue;
 

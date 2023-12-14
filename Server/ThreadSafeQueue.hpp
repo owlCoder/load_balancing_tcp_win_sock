@@ -66,8 +66,19 @@ void DestroyQueue(Queue* queue);
  * @param dataProcessed A number how much data was processed in time interval
  * @return An integer representing the current size of the queue.
  */
-int QueueSize(Queue* queue, int dataProcessed);
+int QueueSize(Queue* queue);
 
+/**
+ * @brief Calculates the total amount of data enqueued in the queue.
+ *
+ * This function calculates and returns the total size of all data elements
+ * currently enqueued in the provided queue.
+ *
+ * @param queue A pointer to the queue structure.
+ * @return The total size of the data enqueued in the queue (in bytes).
+ */
+
+long int QueueTotalDataEnqueued(Queue* queue);
 /**
  * @brief Initiates a graceful shutdown process for the application.
  *

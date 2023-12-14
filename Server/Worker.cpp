@@ -16,10 +16,10 @@ unsigned int Process_Data(void *params)
     int start_value = data.measurementValue;
     data.measurementValue = 0;
 
-    // Simulate job duration (sleep between 1 to 3.5 seconds)
+    // Simulate job duration (sleep between 2 to 7 seconds)
     srand((unsigned int)time(NULL));
-    unsigned int sleep_time = (rand() % 3) + 1; // Random sleep time between 1 to 3 seconds
-    Sleep(sleep_time * 1000); // sleep takes time in microseconds, hence *1000 for milliseconds
+    unsigned int sleep_time = (rand() % 5) + 2; // Random sleep time between 1 to 3 seconds
+    Sleep(5000); // sleep takes time in microseconds, hence *1000 for milliseconds
 
     // Initialize the critical section
     InitializeCriticalSectionWrapper(&(workerParams->cs));

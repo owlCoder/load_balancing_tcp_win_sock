@@ -6,6 +6,7 @@ void InitializeQueue(Queue* queue) {
     queue->head = nullptr;
     queue->tail = nullptr;
     queue->size = 0; // Initialize size to zero
+    queue->total = 0; // Initialize total enqueued data to zero
     queue->shutdown = 0;
     InitializeCriticalSection(&queue->lock); // Initialize critical section
 }
@@ -28,6 +29,7 @@ void Enqueue(Queue* queue, MeasurementData* newData) {
     }
 
     queue->size++; // Increment size when enqueueing new data
+    queue->total++; // Increment total data size put in queue
 
     LeaveCriticalSection(&queue->lock); // Leave critical section
 }
@@ -47,15 +49,23 @@ MeasurementData* Dequeue(Queue* queue) {
     queue->head = queue->head->next;
     delete temp;
 
-    //queue->size--; // Decrement size when dequeuing data
+    queue->size--; // Decrement size when dequeuing data
 
     LeaveCriticalSection(&queue->lock); // Leave critical section
 
     return data;
 }
 
-// Get the current size of the thread-safe queue
-int QueueSize(Queue* queue, int dataProcessed) {
+// Get the total size of queue
+long int QueueTotalDataEnqueued(Queue* queue) {
+    EnterCriticalSection(&queue->lock); // Enter critical section
+    int total = queue->total;
+    LeaveCriticalSection(&queue->lock); // Leave critical section
+    return total;
+}
+
+// Get the current size of the queue
+int QueueSize(Queue* queue) {
     EnterCriticalSection(&queue->lock); // Enter critical section
     int size = queue->size;
     LeaveCriticalSection(&queue->lock); // Leave critical section

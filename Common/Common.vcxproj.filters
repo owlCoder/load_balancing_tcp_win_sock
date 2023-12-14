@@ -55,6 +55,9 @@
     <ClInclude Include="Node.hpp">
       <Filter>Header Files\Node</Filter>
     </ClInclude>
+    <ClInclude Include="BandwidthThreadParams.hpp">
+      <Filter>Header Files\ThreadParameters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WorkerThreadParams.hpp">

@@ -27,7 +27,7 @@ bool RunQueueCapacityTest(const int max_allocations, const int logFrequency)
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-    while (QueueSize(&queue, 0) > 0) {
+    while (QueueSize(&queue) > 0) {
         struct MeasurementData* data = Dequeue(&queue);
         free(data);
         deallocationsCount++;

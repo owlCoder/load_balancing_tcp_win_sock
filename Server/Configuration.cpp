@@ -26,9 +26,25 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
     }
 
     printf("[Server]: Listening on port %d\n", PORT);
+    
+    //  Show current configuration of server
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    printf(
+        "[Configuration Service]: Applying configuration...\n"
+        "\"server_config.json\": {\n"
+        "\t\"MAX_TCP_CLIENTS_THREADS\": %u,\n"
+        "\t\"MAX_WORKERS_THREADS\": %u,\n"
+        "\t\"GC_LB_CRT\": %u,\n"
+        "\t\"RTU_VALUE_SECONDS\": %u,\n"
+        "\t\"THREADEX_S\": %u\n"
+        "}\n"
+        "[Configuration Service]: Configuration has been applied successfully\n",
+        MAX_CLIENTS_THREADS, MAX_WORKERS_THREADS, 4, 60, 1);
+
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
     printf("[Interaction Service]: Press 'Q' or 'q' to shutdown server\n");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
     return true;
 }
 
@@ -74,12 +90,16 @@ void StartServer() {
     // Create structs with the necessary data for threads
     AcceptClientThreadParams acceptParams = { serverSocket, &queue, threadPoolClients, threadPoolClientsStatus };
     RunLoadBalancerThreadParams runParams = { &queue, threadPoolWorkers, threadPoolWorkersStatus };
+    BandwidthThreadParams statsParams = { &queue, threadPoolWorkersStatus, MAX_WORKERS_THREADS };
+
+    // Initialize critical section for stats params
+    InitializeCriticalSection(&statsParams.cs);
 
     // Create threads using beginthreadex
     HANDLE acceptClientsThread = (HANDLE)_beginthreadex(NULL, 0, AcceptClientConnections, (void*)&acceptParams, 0, NULL);
     HANDLE runLoadBalancerThread = (HANDLE)_beginthreadex(NULL, 0, RunLoadBalancer, (void*)&runParams, 0, NULL);
 
-    HANDLE runBandwidthStatsThread = (HANDLE)_beginthreadex(NULL, 0, BandwidthStatsHandlerProc, (void*)&queue, 0, NULL);
+    HANDLE runBandwidthStatsThread = (HANDLE)_beginthreadex(NULL, 0, BandwidthStatsHandlerProc, (void*)&statsParams, 0, NULL);
 
     if (acceptClientsThread == NULL || runLoadBalancerThread == NULL || runBandwidthStatsThread == NULL) {
         // Error handling: At least one thread creation failed
