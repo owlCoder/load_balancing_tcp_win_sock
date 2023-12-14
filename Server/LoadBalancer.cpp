@@ -50,25 +50,31 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
             return 1; // Return error code or terminate the thread accordingly
         }
 
-        workerParams->data = *data;
-        workerParams->threadId = -1; // no thread for worker has been allocated yet
-        workerParams->threadPoolWorkerStatus = threadPoolWorkersStatus;
-
         int threadIndex = -1;
         for (int i = 0; i < MAX_WORKERS_THREADS; ++i) {
             if (threadPoolWorkersStatus[i] == THREAD_FREE) {
                 threadIndex = i;
-                threadPoolWorkersStatus[i] = THREAD_BUSY;
                 break;
             }
         }
 
         if (threadIndex != -1) {
-            workerParams->threadId = threadIndex;
-            char logMessage[100];
-            snprintf(logMessage, sizeof(logMessage), "[Worker Init]: Created handler with thread id % d for worker to process data.", threadIndex);
-            LogToFile("../Logs/worker_log.txt", logMessage);
-            threadPoolWorkers[threadIndex] = (HANDLE)_beginthreadex(NULL, 0, LoadBalancerHandlerProc, (void*)workerParams, 0, NULL);
+            // Dequeue data if available to pass to worker
+            MeasurementData* data = Dequeue(queue);
+
+            if (data != nullptr) {
+                workerParams->data = *data;
+                workerParams->threadId = -1; // no thread for worker has been allocated yet
+                workerParams->threadPoolWorkerStatus = threadPoolWorkersStatus;
+                workerParams->threadId = threadIndex;
+                threadPoolWorkersStatus[threadIndex] = THREAD_BUSY; // Get thread from thread pool
+
+                char logMessage[100];
+                snprintf(logMessage, sizeof(logMessage), "[Worker Init]: Created handler with thread id % d for worker to process data.", threadIndex);
+                LogToFile("../Logs/worker_log.txt", logMessage);
+
+                threadPoolWorkers[threadIndex] = (HANDLE)_beginthreadex(NULL, 0, LoadBalancerHandlerProc, (void*)workerParams, 0, NULL);
+            }
         }
         else {
             char logMessage[100];
