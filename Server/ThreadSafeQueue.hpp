@@ -67,4 +67,26 @@ void DestroyQueue(Queue* queue);
  */
 int QueueSize(Queue* queue);
 
+/**
+ * @brief Initiates a graceful shutdown process for the application.
+ *
+ * This function triggers a graceful shutdown process in the application, allowing it to clean up resources,
+ * stop accepting new tasks or connections, and complete any ongoing operations before exiting.
+ *
+ * @param queue A pointer to the queue structure used in the application.
+ * @return An integer indicating the status of the shutdown process.
+ *         Returns 0 upon successful initiation of shutdown; otherwise, returns a non-zero value to indicate an error.
+ */
+int ShutDown(Queue* queue);
+
+/**
+ * @brief Sets the shutdown flag in the application.
+ *
+ * This function sets an internal flag or variable in the application, indicating that a shutdown has been requested.
+ * It is often used in combination with a shutdown process, enabling controlled termination or cleanup activities.
+ *
+ * @param queue A pointer to the queue structure used in the application.
+ */
+void SetShutDown(Queue* queue);
+
 #endif /* THREAD_SAFE_QUEUE_HPP */

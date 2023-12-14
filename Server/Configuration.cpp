@@ -26,6 +26,9 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
     }
 
     printf("[Server]: Listening on port %d\n", PORT);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    printf("[Interaction Service]: Press 'Q' or 'q' to shutdown server\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     return true;
 }
 

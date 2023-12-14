@@ -6,6 +6,7 @@ void InitializeQueue(Queue* queue) {
     queue->head = nullptr;
     queue->tail = nullptr;
     queue->size = 0; // Initialize size to zero
+    queue->shutdown = 0;
     InitializeCriticalSection(&queue->lock); // Initialize critical section
 }
 
@@ -59,6 +60,22 @@ int QueueSize(Queue* queue) {
     int size = queue->size;
     LeaveCriticalSection(&queue->lock); // Leave critical section
     return size;
+}
+
+// Return shutdown flag state
+int ShutDown(Queue* queue) {
+    EnterCriticalSection(&queue->lock); // Enter critical section
+    int shutdown = queue->shutdown;
+    LeaveCriticalSection(&queue->lock); // Leave critical section
+    return shutdown;
+}
+
+// Set shutdown flag state
+void SetShutDown(Queue* queue)
+{
+    EnterCriticalSection(&queue->lock); // Enter critical section
+    queue->shutdown = 1;
+    LeaveCriticalSection(&queue->lock); // Leave critical section
 }
 
 // Clears the thread-safe queue and frees allocated memory

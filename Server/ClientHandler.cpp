@@ -33,6 +33,16 @@ void HandleClient(void* params) {
     int bytesReceived = -1;
 
     do {
+        if (ShutDown(queue)) {
+            EnterCriticalSection(&queue->lock); // Enter critical section
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            printf("[Client Handler]: Client disconnected\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+            closesocket(clientSocket);
+            LeaveCriticalSection(&queue->lock); // Leave critical section
+
+            return;
+        }
         // Allocate memory for new_data
         struct MeasurementData* new_data = (struct MeasurementData*)malloc(sizeof(struct MeasurementData));
 
@@ -63,20 +73,19 @@ void HandleClient(void* params) {
         }
     } while (bytesReceived > 0);
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-    printf("[Client Handler]: Client disconnected\n");
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     closesocket(clientSocket);
-
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    
     // Initialize the critical section
     InitializeCriticalSectionWrapper(&(threadParams->cs)); 
 
     // Enter critical section before changing
     EnterCriticalSectionWrapper(&(threadParams->cs)); 
     threadPoolClientsStatus[threadId] = THREAD_FREE;
+    printf("[Client Handler]: Client disconnected\n");
 
     // Exit critical section after changing
-    EnterCriticalSectionWrapper(&(threadParams->cs));
+    LeaveCriticalSectionWrapper(&(threadParams->cs));
 }
 
 unsigned int __stdcall AcceptClientConnections(void* param) {
