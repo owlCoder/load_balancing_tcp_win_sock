@@ -15,7 +15,6 @@ unsigned int __stdcall LoadBalancerHandlerProc(LPVOID lpParameter)
         }
     }
     __except (EXCEPTION_EXECUTE_HANDLER) {
-        // Exception handling code here
         return 1; // Return an error code indicating an exception occurred
     }
 }

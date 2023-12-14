@@ -47,7 +47,7 @@ MeasurementData* Dequeue(Queue* queue) {
     queue->head = queue->head->next;
     delete temp;
 
-    queue->size--; // Decrement size when dequeuing data
+    //queue->size--; // Decrement size when dequeuing data
 
     LeaveCriticalSection(&queue->lock); // Leave critical section
 
@@ -55,9 +55,10 @@ MeasurementData* Dequeue(Queue* queue) {
 }
 
 // Get the current size of the thread-safe queue
-int QueueSize(Queue* queue) {
+int QueueSize(Queue* queue, int dataProcessed) {
     EnterCriticalSection(&queue->lock); // Enter critical section
     int size = queue->size;
+    queue->size -= dataProcessed;
     LeaveCriticalSection(&queue->lock); // Leave critical section
     return size;
 }

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BandwidthCalculator.cpp" />
     <ClCompile Include="ClientHandler.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="LoadBalancer.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="WorkerHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BandwidthCalculator.hpp" />
     <ClInclude Include="ClientHandler.hpp" />
     <ClInclude Include="Configuration.hpp" />
     <ClInclude Include="LoadBalancer.hpp" />

@@ -60,12 +60,13 @@ void DestroyQueue(Queue* queue);
  *
  * This function returns the number of elements present in the thread-safe queue without
  * traversing through the entire queue. The queue size is maintained and updated whenever
- * elements are enqueued or dequeued, allowing for efficient retrieval of the current queue size.
+ * elements are enqueued, allowing for efficient retrieval of the current queue size.
  *
  * @param queue A pointer to the thread-safe queue.
+ * @param dataProcessed A number how much data was processed in time interval
  * @return An integer representing the current size of the queue.
  */
-int QueueSize(Queue* queue);
+int QueueSize(Queue* queue, int dataProcessed);
 
 /**
  * @brief Initiates a graceful shutdown process for the application.

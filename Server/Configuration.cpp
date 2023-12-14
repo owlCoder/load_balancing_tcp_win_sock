@@ -79,7 +79,9 @@ void StartServer() {
     HANDLE acceptClientsThread = (HANDLE)_beginthreadex(NULL, 0, AcceptClientConnections, (void*)&acceptParams, 0, NULL);
     HANDLE runLoadBalancerThread = (HANDLE)_beginthreadex(NULL, 0, RunLoadBalancer, (void*)&runParams, 0, NULL);
 
-    if (acceptClientsThread == NULL || runLoadBalancerThread == NULL) {
+    HANDLE runBandwidthStatsThread = (HANDLE)_beginthreadex(NULL, 0, BandwidthStatsHandlerProc, (void*)&queue, 0, NULL);
+
+    if (acceptClientsThread == NULL || runLoadBalancerThread == NULL || runBandwidthStatsThread == NULL) {
         // Error handling: At least one thread creation failed
         if (acceptClientsThread != NULL) {
             CloseHandle(acceptClientsThread);
@@ -87,14 +89,19 @@ void StartServer() {
         if (runLoadBalancerThread != NULL) {
             CloseHandle(runLoadBalancerThread);
         }
+        if (runBandwidthStatsThread != NULL) {
+            CloseHandle(runBandwidthStatsThread);
+        }
     }
     else {
         // Wait for threads to finish
         WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
+        WaitForSingleObject((HANDLE)runBandwidthStatsThread, INFINITE);
 
         // Clean up resources
         CloseHandle((HANDLE)runLoadBalancerThread);
         CloseHandle((HANDLE)acceptClientsThread);
+        CloseHandle((HANDLE)runBandwidthStatsThread);
 
         // Clean up resources for client threads
              // Clean up resources for client threads

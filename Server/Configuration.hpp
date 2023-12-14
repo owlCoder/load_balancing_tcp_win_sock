@@ -12,6 +12,7 @@
 #include "ClientHandler.hpp"
 #include "Worker.hpp"
 #include "LoadBalancer.hpp"
+#include "BandwidthCalculator.hpp"
 #include "Menu.hpp"
 #include "conio.h"
 
