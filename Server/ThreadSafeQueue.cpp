@@ -58,7 +58,6 @@ MeasurementData* Dequeue(Queue* queue) {
 int QueueSize(Queue* queue, int dataProcessed) {
     EnterCriticalSection(&queue->lock); // Enter critical section
     int size = queue->size;
-    queue->size -= dataProcessed;
     LeaveCriticalSection(&queue->lock); // Leave critical section
     return size;
 }

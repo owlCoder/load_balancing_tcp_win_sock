@@ -16,10 +16,11 @@ unsigned int __stdcall BandwidthStatsHandlerProc(LPVOID lpParameter) {
     }
 }
 
-// Function to calculate data processed in MB/s in the last 60 seconds
+// Function to calculate data processed in KB/s in the last 60 seconds
 unsigned int __stdcall BandwidthStatistics(void* param) {
     const int interval = 5; // Time interval in seconds
-    int dataProcessed = 0; // Total data processed in bytes
+    int dataProcessed = 0; // Data processed in current cycle in bytes
+    int lastDataProcessed = 0; // Last count of data processed in bytes
     time_t startTime = time(NULL);
 
     while (1) {
@@ -27,20 +28,25 @@ unsigned int __stdcall BandwidthStatistics(void* param) {
         double elapsedSeconds = difftime(currentTime, startTime);
 
         if (elapsedSeconds >= interval) {
-            // Calculate data processed in MB/s
-            double dataProcessedMB = (double)dataProcessed / (1024);
-            double dataProcessedPerSec = dataProcessedMB / interval;
+            // Perform QueueSize calculation and accumulate data processed
+            int currentTotal = QueueSize(((Queue*)param), 0);
 
+            dataProcessed = currentTotal - lastDataProcessed;
+
+            // Save last time data count
+            lastDataProcessed = currentTotal;
+
+            // Calculate data processed in KB/s
+            double dataProcessedKB = (double)dataProcessed * sizeof(MeasurementData) / (1024);
+            double dataProcessedPerSec = dataProcessedKB / (double)interval;
+
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
             printf("[Bandwidth Statistics]: Data processed in the last %d seconds: %.2f KB/s\n", interval, dataProcessedPerSec);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
             // Reset values for the next interval
             startTime = time(NULL);
-            dataProcessed = 0;
         }
-
-        // Perform QueueSize calculation and accumulate data processed
-        int queueSize = QueueSize(((Queue *)param), dataProcessed); 
-        dataProcessed += queueSize;
 
         Sleep(1000); // Sleep for a short duration before checking again
     }
