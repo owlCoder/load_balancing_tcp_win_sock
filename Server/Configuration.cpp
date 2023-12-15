@@ -140,6 +140,9 @@ void StartServer() {
 
     }
 
+    // Clean up queue
+    DestroyQueue(&queue);
+
     closesocket(serverSocket);
     WSACleanup();
 }
