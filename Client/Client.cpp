@@ -4,13 +4,14 @@
 
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include "time.h"
+#include <stdlib.h>
+#include <time.h>
 #include "../Common/MeasurementData.hpp"
 #include "../Common/RNGState.hpp"
 #include "GenerateMeasurementDate.hpp"
 #include "GenerateMeasurementValue.hpp"
+#include "../Server/Colors.hpp" 
 
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
@@ -25,6 +26,9 @@ int main() {
         fprintf(stderr, "WSAStartup failed\n");
         return 1;
     }
+
+    // Get console handle for color output
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     SOCKET clientSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (clientSocket == INVALID_SOCKET) {
@@ -45,6 +49,7 @@ int main() {
         return 1;
     }
 
+    SetConsoleTextAttribute(consoleHandle, FOREGROUND_LIGHTGREEN);
     printf("[Client]: Connected to Load Balancer service\n");
 
     while (1) {
@@ -55,6 +60,7 @@ int main() {
         struct MeasurementData* new_data = (struct MeasurementData*)malloc(sizeof(struct MeasurementData));
 
         if (new_data == NULL) {
+            SetConsoleTextAttribute(consoleHandle, FOREGROUND_LIGHTRED);
             printf("\nError allocating memory for buffer!\n");
             break;
         }
@@ -83,14 +89,42 @@ int main() {
 
         char buffer[1024];
         int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
+        if (bytesReceived <= 0) {
+            // Connection closed or error occurred
+            if (bytesReceived == 0) {
+                // Connection closed gracefully
+                SetConsoleTextAttribute(consoleHandle, FOREGROUND_LIGHTRED);
+                printf("[Connection Handler]: Connection closed by the server\n");
+            }
+            else {
+                // Error in receiving data
+                SetConsoleTextAttribute(consoleHandle, FOREGROUND_LIGHTRED);
+                printf("[Connection Handler]: Connection closed by the server\n");
+            }
+
+            // Clean-up and exit
+            closesocket(clientSocket);
+            WSACleanup();
+            SetConsoleTextAttribute(consoleHandle, FOREGROUND_WHITE);
+            printf("Press any key to close client...");
+            char tmp = getchar();
+            return 2;
+        }
+
         if (bytesReceived > 0 && bytesReceived < 1023) {
             buffer[bytesReceived] = '\0';
 
-            if (strcmp("Connection accepted\n", buffer) == 0 || strcmp("Measurement added to queue\n", buffer) == 0) {
-                printf("[Loab Balancer]: %s", buffer);
+            if (strcmp("Connection accepted\n", buffer) == 0) {
+                SetConsoleTextAttribute(consoleHandle, FOREGROUND_LIGHTGREEN);
+                printf("[Load Balancer]: %s", buffer);
+            }
+            else if (strcmp("Measurement added to queue\n", buffer) == 0) {
+                SetConsoleTextAttribute(consoleHandle, FOREGROUND_LIGHTCYAN);
+                printf("[Load Balancer]: %s", buffer);
             }
             else {
                 // close connection because no free threads on server available
+                SetConsoleTextAttribute(consoleHandle, FOREGROUND_LIGHTRED);
                 printf("[Connection Handler]: %s", buffer);
                 closesocket(clientSocket);
                 WSACleanup();
@@ -103,6 +137,7 @@ int main() {
         // Free the allocated memory
         free(new_data);
 
+        // Sleep for a random period between 1000 to 3000 milliseconds
         Sleep(xorshift128plus(&rng_state_sleep) % 2000 + 1000);
     }
 
