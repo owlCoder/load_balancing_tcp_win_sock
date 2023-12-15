@@ -109,5 +109,8 @@
     <ClInclude Include="BandwidthCalculator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Colors.hpp">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="BandwidthCalculator.hpp" />
     <ClInclude Include="ClientHandler.hpp" />
+    <ClInclude Include="Colors.hpp" />
     <ClInclude Include="Configuration.hpp" />
     <ClInclude Include="LoadBalancer.hpp" />
     <ClInclude Include="Menu.hpp" />

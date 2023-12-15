@@ -55,10 +55,11 @@ void RunDesiredOption(void (*serverFunction)()) {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
             printf("-------------------------------------------------------------------------------------------\n");
             printf("[Option Runner]: Running Bandwidth Stress Test...\n");
-            printf("-------------------------------------------------------------------------------------------\n\n");
+            printf("-------------------------------------------------------------------------------------------\n");
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
-            // Run server run clients simulate load balancer activity
+            // Run bandwidth test
+            RunBandwidthTest(10);
 
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
             printf("\n-------------------------------------------------------------------------------------------");

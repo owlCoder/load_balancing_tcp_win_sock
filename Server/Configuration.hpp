@@ -15,6 +15,9 @@
 #include "BandwidthCalculator.hpp"
 #include "Menu.hpp"
 #include "conio.h"
+#include "../Client//GenerateMeasurementDate.hpp"
+#include "../Client/GenerateMeasurementValue.hpp"
+#include "Colors.hpp"
 
 #define PORT 5059
 #define MAX_CLIENTS_THREADS 16
