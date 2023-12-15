@@ -38,34 +38,27 @@ unsigned int __stdcall BandwidthStatistics(void* param) {
             lastDataProcessed = currentTotal;
 
             // Calculate data processed in KB/s
-            double dataProcessedKB = (double)dataProcessed * sizeof(MeasurementData) / (1024);
-            double dataProcessedPerSec = dataProcessedKB / (double)interval;
+            double dataProcessedB = (double)dataProcessed * sizeof(MeasurementData);
+            double dataProcessedPerSec = dataProcessedB / (double)interval;
 
             // Calculate worker utilization
             EnterCriticalSection(&params->cs);
             int workers_num = params->max_workers;
-            int worker_busy = 0;
+            int workers_busy = 0;
             for (int i = 0; i < workers_num; i++) {
                 if (params->threadPoolWorkerStatus[i] == THREAD_BUSY) {
-                    worker_busy++;
+                    workers_busy++;
                 }
             }
             LeaveCriticalSection(&params->cs);
 
             // Calculate bandwidth
-            int bandwidth = (int)(((double)worker_busy / workers_num) * 100);
-
-            // Calculate maximum possible data processed by workers
-            int maxDataProcessed = (int)(((double)worker_busy / workers_num) * dataProcessed);
-
-            // Calculate actual bandwidth based on data processed and maximum possible data processed
-            int actualBandwidth = (int)(((double)dataProcessed / maxDataProcessed) * 100);
+            int bandwidth = (int)(((double)workers_busy / workers_num) * 100);
 
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-            printf("[Bandwidth Statistics]: Queue processed in the last %d seconds: %d\n", interval, QueueSize(params->queue));
-            printf("[Bandwidth Statistics]: Data processed in the last %d seconds: %.2f KB/s\n", interval, dataProcessedPerSec);
-            printf("[Bandwidth Statistics]: Bandwidth in the last %d seconds: %2d%%\n", interval, (actualBandwidth < 0 ? 0 : actualBandwidth));
-
+            printf("\nIn queue: %d", QueueSize(params->queue));
+            printf("[Bandwidth Statistics]: Data processed in the last %d seconds: %.2f B/s\n", interval, dataProcessedPerSec);
+            printf("[Bandwidth Statistics]: Bandwidth in the last %d seconds: %2d%%\n", interval, bandwidth);
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
             // Reset values for the next interval

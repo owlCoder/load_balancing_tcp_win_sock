@@ -18,7 +18,7 @@
 
 #define PORT 5059
 #define MAX_CLIENTS_THREADS 16
-#define MAX_WORKERS_THREADS 1
+#define MAX_WORKERS_THREADS 8
 #define THREAD_BUSY true
 #define THREAD_FREE false
 

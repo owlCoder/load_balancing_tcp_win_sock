@@ -19,7 +19,7 @@ unsigned int Process_Data(void *params)
     // Simulate job duration (sleep between 2 to 7 seconds)
     srand((unsigned int)time(NULL));
     unsigned int sleep_time = (rand() % 5) + 2; // Random sleep time between 1 to 3 seconds
-    Sleep(5000); // sleep takes time in microseconds, hence *1000 for milliseconds
+    Sleep(sleep_time * 1000); // sleep takes time in microseconds, hence *1000 for milliseconds
 
     // Initialize the critical section
     InitializeCriticalSectionWrapper(&(workerParams->cs));

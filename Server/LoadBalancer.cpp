@@ -77,9 +77,9 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
             }
         }
         else {
-            char logMessage[100];
+           /* char logMessage[100];
             snprintf(logMessage, sizeof(logMessage), "[Worker Init]: All threads are busy. Maximum capacity used.");
-            LogToFile("../Logs/worker_log.txt", logMessage);
+            LogToFile("../Logs/worker_log.txt", logMessage);*/
             free(workerParams);
         }
     }
