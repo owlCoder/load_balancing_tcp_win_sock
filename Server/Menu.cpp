@@ -59,8 +59,15 @@ void RunDesiredOption(void (*serverFunction)()) {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
             // Run bandwidth test
-            RunBandwidthTest(10);
-
+            if (RunBandwidthTest(10, 100)) {
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
+                printf("\n========================== [Bandwidth Test Checker]: Test Passed ===========================\n");
+            }
+            else {
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+                printf("\n========================== [Bandwidth Test Checker]: Test Failed ==========================\n");
+            }
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
             printf("\n-------------------------------------------------------------------------------------------");
             printf("\n[Option Runner]: Running Bandwidth Stress Test Completed\n");

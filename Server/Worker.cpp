@@ -17,7 +17,7 @@ unsigned int Process_Data(void *params)
     data.measurementValue = 0;
 
     // Simulate job duration (sleep between 2 to 7 seconds)
-    srand((unsigned int)time(NULL));
+    srand((unsigned int)start_value);
     unsigned int sleep_time = (rand() % 5) + 2; // Random sleep time between 1 to 3 seconds
     Sleep(sleep_time * 1000); // sleep takes time in microseconds, hence *1000 for milliseconds
 

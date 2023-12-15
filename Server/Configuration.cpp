@@ -144,7 +144,7 @@ void StartServer() {
     WSACleanup();
 }
 
-bool RunBandwidthTest(int workers_count) {
+bool RunBandwidthTest(int workers_count, int number_sample_data) {
     Queue queue;
 
     InitializeQueue(&queue);
@@ -164,13 +164,13 @@ bool RunBandwidthTest(int workers_count) {
     memset(threadPoolWorkers, 0, workers_count * sizeof(HANDLE));
     memset(threadPoolWorkersStatus, 0, workers_count * sizeof(bool));
 
-    RunLoadBalancerThreadParams runParams = { &queue, threadPoolWorkers, threadPoolWorkersStatus };
-    BandwidthThreadParams statsParams = { &queue, threadPoolWorkersStatus, workers_count };
+    RunLoadBalancerThreadParams runParams = { &queue, threadPoolWorkers, threadPoolWorkersStatus, true };
+    BandwidthThreadParams statsParams = { &queue, threadPoolWorkersStatus, workers_count, true };
 
     // Initialize critical section for stats params
     InitializeCriticalSection(&statsParams.cs);
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTCYAN);
     printf(
         "\n[Configuration Service]: Applying configuration...\n"
         "\"server_config.json\": {\n"
@@ -181,17 +181,17 @@ bool RunBandwidthTest(int workers_count) {
         "\t\"THREADEX_S\": %u\n"
         "}\n"
         "[Configuration Service]: Configuration has been applied successfully\n",
-        MAX_CLIENTS_THREADS, MAX_WORKERS_THREADS, 4, 60, 1);
+        MAX_CLIENTS_THREADS, workers_count, 4, 60, 1);
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-    printf("\n[Test Resource Generator]: Generating test measurement data");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTWHITE);
+    printf("[Test Resource Generator]: Generating test samples of measurement data");
     Sleep(1000); printf(".");
     Sleep(1000); printf(".");
     Sleep(1000); printf(".");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
     // Add test data in queue on eg. number of workers * 10
-    for (int i = 0; i < workers_count * 10; i++) {
+    for (int i = 0; i < number_sample_data; i++) {
         // Generate new seed on every iteration
         srand((unsigned int)time(NULL));
 
@@ -235,7 +235,7 @@ bool RunBandwidthTest(int workers_count) {
     }
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTGREEN);
-    printf("\n[Test Resource Generator]: Generating test data completed. %d measurement data has been added!", workers_count * 10);
+    printf("\n[Test Resource Generator]: Generating test data completed. %d samples has been added!", workers_count * 10);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTYELLOW);
     printf("\n[Intelligent Background Service Runner]: Initializating threads");
     Sleep(1000); printf(".");
@@ -245,8 +245,8 @@ bool RunBandwidthTest(int workers_count) {
     printf("\n[Intelligent Background Service Runner]: Threads are up!");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-    printf("\n[Interaction Service]: Press 'Q' or 'q' to cancel bandwidth test");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTRED);
+    printf("\n[Interaction Service]: Press 'Q' or 'q' to cancel bandwidth test\n");
 
     
     // Create threads using beginthreadex
@@ -276,6 +276,11 @@ bool RunBandwidthTest(int workers_count) {
         // Clean up resources for worker threads
         for (int i = 0; i < workers_count; ++i) 
             CloseHandle(threadPoolWorkers[i]);
+
+        free(threadPoolWorkers);
+        free(threadPoolWorkersStatus);
+
+        return true;
     }
 
     free(threadPoolWorkers);

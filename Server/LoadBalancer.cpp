@@ -44,6 +44,16 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
         HANDLE* threadPoolWorkers = params->threadPoolWorkers;
         bool* threadPoolWorkersStatus = params->threadPoolWorkersStatus;
 
+        // Check is test mode, if yes when Queue reach size of 0 elements, exit
+        if (params->test_mode && QueueSize(queue) <= 0) {
+            SetShutDown(((RunLoadBalancerThreadParams*)param)->queue);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            printf("\n[Intelligent Resource Manager]: Gracefully shutting down Load Balancer service...");
+            printf("\n[Intelligent Resource Manager]: Gracefully shutting down Bandwidth Statistics service...\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+            return 0;
+        }
+
         WorkerThreadParams* workerParams = (WorkerThreadParams*)malloc(sizeof(WorkerThreadParams));
         if (workerParams == NULL) {
             fprintf(stderr, "Memory allocation for workers failed\n");

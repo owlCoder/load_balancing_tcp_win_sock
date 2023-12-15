@@ -23,6 +23,7 @@ bool RunQueueCapacityTest(const int max_allocations, const int logFrequency);
  * provided number of workers.
  *
  * @param workers_count The number of workers for the bandwidth test.
+ * @param number_sample_data The number of sample data for the bandwidth test.
  * @return Returns true if the bandwidth test runs successfully, otherwise returns false.
  *
  * @remarks The function creates a queue and a thread pool for workers to simulate processing
@@ -31,6 +32,6 @@ bool RunQueueCapacityTest(const int max_allocations, const int logFrequency);
  * encounters an issue, the function returns false. When the test completes or encounters an error,
  * it cleans up allocated resources and returns true or false accordingly.
  */
-bool RunBandwidthTest(int workers_count);
+bool RunBandwidthTest(int workers_count, int number_sample_data);
 
 #endif // STRESS_TESTS_HPP

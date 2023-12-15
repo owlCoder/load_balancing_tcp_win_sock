@@ -9,6 +9,7 @@ typedef struct RunLoadBalancerThreadParams {
     Queue* queue;
     HANDLE* threadPoolWorkers;
     bool* threadPoolWorkersStatus;
+    bool test_mode;
 } RunLoadBalancerThreadParams;
 
 #endif // RUN_LOAD_BALANCER_THREAD_PARAMS_HPP

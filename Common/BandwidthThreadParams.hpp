@@ -10,6 +10,7 @@ typedef struct BandwidthThreadParams {
     Queue* queue;                    // Pointer to the queue
     bool* threadPoolWorkerStatus;    // Pointer to an array indicating worker status
     int max_workers;                 // Maximum number of workers
+    bool test_mode;
     CRITICAL_SECTION cs;             // Critical section
 } BandwidthThreadParams;
 
