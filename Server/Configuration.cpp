@@ -289,5 +289,8 @@ bool RunBandwidthTest(int workers_count, int number_sample_data) {
     free(threadPoolWorkers);
     free(threadPoolWorkersStatus);
 
+    // Clean up queue
+    DestroyQueue(&queue);
+
     return true;
 }
