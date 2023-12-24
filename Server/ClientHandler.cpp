@@ -4,6 +4,7 @@
 #include "Configuration.hpp"
 #include "../Common/CriticalSectionWrapper.hpp"
 
+// __stdcall -> Pushes parameters on the stack, in reverse order (right to left)
 unsigned int __stdcall ClientHandlerProc(LPVOID lpParameter) {
     __try {
         ThreadParams* params = (ThreadParams*)lpParameter;
