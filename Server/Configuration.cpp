@@ -124,7 +124,7 @@ void StartServer() {
         }
 
         // Wait for threads to finish
-        // WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
+        WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
         WaitForSingleObject((HANDLE)runBandwidthStatsThread, INFINITE);
 
         // Wait for all threads in the pool to complete
@@ -251,7 +251,7 @@ bool RunBandwidthTest(int workers_count, int number_sample_data) {
     }
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTGREEN);
-    printf("\n[Test Resource Generator]: Generating test data completed. %d samples has been added!", workers_count * 10);
+    printf("\n[Test Resource Generator]: Generating test data completed. %d samples has been added!", number_sample_data);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTYELLOW);
     printf("\n[Intelligent Background Service Runner]: Initializating threads");
     Sleep(1000); printf(".");
@@ -281,29 +281,42 @@ bool RunBandwidthTest(int workers_count, int number_sample_data) {
         return false;
     }
     else {
+        WorkerParams wp = { &queue, threadPoolWorkersStatus, MAX_WORKERS_THREADS };
+        InitializeCriticalSection(&(wp.cs));
+
+        // Create thread pool
+        for (int i = 0; i < MAX_WORKERS_THREADS; i++)
+        {
+            threadPoolWorkers[i] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Worker, (LPVOID)&wp, NULL, 0);
+        }
+
         // Wait for threads to finish
         WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
         WaitForSingleObject((HANDLE)runBandwidthStatsThread, INFINITE);
+
+        // Wait for all threads in the pool to complete
+        WaitForMultipleObjects(MAX_WORKERS_THREADS, threadPoolWorkers, TRUE, INFINITE);
 
         // Clean up resources
         CloseHandle((HANDLE)runLoadBalancerThread);
         CloseHandle((HANDLE)runBandwidthStatsThread);
 
         // Clean up resources for worker threads
-        for (int i = 0; i < workers_count; ++i) 
-            CloseHandle(threadPoolWorkers[i]);
+        for (int i = 0; i < MAX_WORKERS_THREADS; ++i) {
+            if (threadPoolWorkers[i] != NULL) {
+                CloseHandle(threadPoolWorkers[i]);
+            }
+        }
+
+        // Delete critical section
+        DeleteCriticalSection(&(wp.cs));
 
         free(threadPoolWorkers);
         free(threadPoolWorkersStatus);
 
+        // Clean up queue
+        DestroyQueue(&queue);
+
         return true;
     }
-
-    free(threadPoolWorkers);
-    free(threadPoolWorkersStatus);
-
-    // Clean up queue
-    DestroyQueue(&queue);
-
-    return true;
 }

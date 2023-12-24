@@ -9,17 +9,9 @@
 #include <WinSock2.h>
 #include "../Common/Queue.hpp" // Include the header file for the Queue
 #include "WorkerHandler.hpp" // Include the header file for the WorkerHandler
+#include "WorkerHandler.hpp"
+#include "Configuration.hpp"
 
- /**
-  * @brief Load balancer handler function definition.
-  *
-  * This function is responsible for handling the load balancing logic.
-  * It takes a pointer to a parameter as input and returns a DWORD.
-  *
-  * @param lpParameter A pointer to the parameter passed to the load balancer handler function.
-  * @return A DWORD indicating the status or result of the load balancing operation.
-  */
-unsigned int __stdcall LoadBalancerHandlerProc(LPVOID lpParameter);
 
 /**
  * @brief Function to run the load balancer.

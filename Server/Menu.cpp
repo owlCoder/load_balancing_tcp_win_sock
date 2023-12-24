@@ -59,7 +59,7 @@ void RunDesiredOption(void (*serverFunction)()) {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
             // Run bandwidth test
-            if (RunBandwidthTest(10, 100)) {
+            if (RunBandwidthTest(5, 100)) {
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
                 printf("\n========================== [Bandwidth Test Checker]: Test Passed ===========================\n");
             }
