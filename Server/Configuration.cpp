@@ -114,7 +114,7 @@ void StartServer() {
         }
     }
     else {
-        WorkerParams wp = { &queue, threadPoolWorkersStatus };
+        WorkerParams wp = { &queue, threadPoolWorkersStatus, MAX_WORKERS_THREADS };
         InitializeCriticalSection(&(wp.cs));
 
         // Create thread pool
