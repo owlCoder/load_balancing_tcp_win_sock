@@ -1,5 +1,6 @@
 #include "Configuration.hpp"
 
+#pragma region INITIALIZE SERVER SOCKET
 // Function to initialize the server socket
 bool InitializeServerSocket(SOCKET* serverSocket) {
     *serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -26,7 +27,7 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
     }
 
     printf("[Server]: Listening on port %d\n", PORT);
-    
+
     //  Show current configuration of server
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
     printf(
@@ -48,6 +49,9 @@ bool InitializeServerSocket(SOCKET* serverSocket) {
     return true;
 }
 
+#pragma endregion
+
+#pragma region INITIALIZE SERVER
 // Function to initialize the server and thread pool
 bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolClientsStatus, HANDLE* threadPoolWorkers, bool* threadPoolWorkersStatus, SOCKET* serverSocket) {
     InitializeQueue(queue);
@@ -62,7 +66,9 @@ bool InitializeServer(Queue* queue, HANDLE* threadPoolClients, bool* threadPoolC
 
     return InitializeServerSocket(serverSocket);
 }
+#pragma endregion
 
+#pragma region START SERVER
 // Function to start the server
 void StartServer() {
     WSADATA wsaData;
@@ -159,6 +165,9 @@ void StartServer() {
     closesocket(serverSocket);
     WSACleanup();
 }
+#pragma endregion
+
+#pragma region BANDWIDTH TEST
 
 bool RunBandwidthTest(int workers_count, int number_sample_data) {
     Queue queue;
@@ -259,15 +268,10 @@ bool RunBandwidthTest(int workers_count, int number_sample_data) {
     Sleep(1000); printf(".");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_YELLOW);
     printf("\n[Intelligent Background Service Runner]: Threads are up!");
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-    
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTRED);
-    printf("\n[Interaction Service]: Press 'Q' or 'q' to cancel bandwidth test\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_LIGHTRED); printf("\n[Interaction Service]: Press 'Q' or 'q' to cancel bandwidth test\n"); Sleep(3000); return true;
 
-    
     // Create threads using beginthreadex
     HANDLE runLoadBalancerThread = (HANDLE)_beginthreadex(NULL, 0, RunLoadBalancer, (void*)&runParams, 0, NULL);
-
     HANDLE runBandwidthStatsThread = (HANDLE)_beginthreadex(NULL, 0, BandwidthStatsHandlerProc, (void*)&statsParams, 0, NULL);
 
     if (runLoadBalancerThread == NULL || runBandwidthStatsThread == NULL) {
@@ -320,3 +324,4 @@ bool RunBandwidthTest(int workers_count, int number_sample_data) {
         return true;
     }
 }
+#pragma endregion

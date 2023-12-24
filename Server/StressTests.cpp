@@ -1,5 +1,6 @@
 #include "StressTests.hpp"
 
+#pragma region QUEUE CAPACITY TEST
 bool RunQueueCapacityTest(const int max_allocations, const int logFrequency)
 {
     struct Queue queue;
@@ -50,3 +51,4 @@ bool RunQueueCapacityTest(const int max_allocations, const int logFrequency)
 
     return 0;
 }
+#pragma endregion

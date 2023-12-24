@@ -11,6 +11,7 @@
 #include "../Common/Queue.hpp"
 #include "ThreadSafeQueue.hpp"
 #include "../Common/BandwidthThreadParams.hpp"
+#include "conio.h"
 
 #define RTU_VALUE_SECONDS 15
 

@@ -1,5 +1,6 @@
 ﻿#include "Menu.hpp"
 
+#pragma region DISPLAY INTERACTIVE MENU
 void DisplayMenu() {
     printf("\n=============================================\n");
     printf("                SERVER MENU\n");
@@ -10,7 +11,9 @@ void DisplayMenu() {
     printf("4 - Exit\n");
     printf("=============================================\n");
 }
+#pragma endregion
 
+#pragma region RUN DESIRED OPTION
 void RunDesiredOption(void (*serverFunction)()) {
     int choice;
     do {
@@ -103,3 +106,4 @@ void RunDesiredOption(void (*serverFunction)()) {
         }
     } while (choice != 4);
 }
+#pragma endregion

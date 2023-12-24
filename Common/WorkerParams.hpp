@@ -3,12 +3,16 @@
 
 #include "Queue.hpp"
 
+/**
+ * @struct WorkerParams
+ * @brief Structure containing parameters for worker threads.
+ */
 typedef struct WorkerParams
 {
-	Queue* queue;
-	bool* workers_status;
-	int max_workers;
-	CRITICAL_SECTION cs;
+    Queue* queue; /**< Pointer to the queue for task management */
+    bool* workers_status; /**< Pointer to the array of worker statuses */
+    int max_workers; /**< Maximum number of workers */
+    CRITICAL_SECTION cs; /**< Critical section for synchronization */
 } WorkerParams;
 
 #endif

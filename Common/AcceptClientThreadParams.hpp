@@ -4,12 +4,15 @@
 #include <WinSock2.h>
 #include "Queue.hpp"
 
-// Struct to pass data to the AcceptClientConnections thread
+/**
+ * @struct AcceptClientThreadParams
+ * @brief Structure to pass data to the AcceptClientConnections thread.
+ */
 typedef struct AcceptClientThreadParams {
-    SOCKET serverSocket;
-    Queue* queue;
-    HANDLE* threadPoolClients;
-    bool* threadPoolClientsStatus;
+    SOCKET serverSocket; /**< Server socket for accepting client connections */
+    Queue* queue; /**< Pointer to the queue for task management */
+    HANDLE* threadPoolClients; /**< Array of handles to worker threads */
+    bool* threadPoolClientsStatus; /**< Array indicating the status of worker threads */
 } AcceptClientThreadParams;
 
 #endif // ACCEPT_CLIENT_THREAD_PARAMS_HPP

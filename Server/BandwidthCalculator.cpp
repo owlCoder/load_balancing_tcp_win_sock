@@ -1,5 +1,6 @@
 #include "BandwidthCalculator.hpp"
 
+#pragma region STATISTICS SERVICE HANDLER
 unsigned int __stdcall BandwidthStatsHandlerProc(LPVOID lpParameter) {
     __try {
         void* params = (void*)lpParameter;
@@ -15,7 +16,9 @@ unsigned int __stdcall BandwidthStatsHandlerProc(LPVOID lpParameter) {
         return 1; // Return an error code indicating an exception occurred
     }
 }
+#pragma endregion
 
+#pragma region INTELIGENT STATISTICS SERVICE
 // Function to calculate data processed in KB/s in the last RTU_VALUE_SECONDS seconds
 unsigned int __stdcall BandwidthStatistics(void* param) {
     const int interval = RTU_VALUE_SECONDS; // Time interval in seconds
@@ -24,6 +27,20 @@ unsigned int __stdcall BandwidthStatistics(void* param) {
     BandwidthThreadParams* params = (BandwidthThreadParams*)param;
 
     while (!ShutDown(params->queue)) {
+        // Gracefully shutdown load balancer
+        if (_kbhit() || (params->test_mode && QueueSize(params->queue) <= 0)) { // Check if a key has been pressed
+            char ch = _getch(); // Get the pressed key
+            if (ch == 'q' || ch == 'Q') {
+                SetShutDown(params->queue);
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                printf("\n[Intelligent Resource Manager]: Gracefully shutting down Load Balancer service...");
+                printf("\n[Intelligent Resource Manager]: Gracefully shutting down TCP handler service...");
+                printf("\n[Intelligent Resource Manager]: Gracefully shutting down Bandwidth Statistics service...\n");
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                ExitThread(0);
+            }
+        }
+
         time_t currentTime = time(NULL);
         double elapsedSeconds = difftime(currentTime, startTime);
 
@@ -75,3 +92,4 @@ unsigned int __stdcall BandwidthStatistics(void* param) {
 
     return 0;
 }
+#pragma endregion

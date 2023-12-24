@@ -1,5 +1,6 @@
 #include "WorkerHandler.hpp"
 
+#pragma region WORKER RUNNER
 DWORD WINAPI Worker(LPVOID lpParam) {
     WorkerParams *wp = (WorkerParams*)lpParam;
     Queue* queue = wp -> queue;
@@ -37,3 +38,4 @@ DWORD WINAPI Worker(LPVOID lpParam) {
     
     return 0;
 }
+#pragma endregion

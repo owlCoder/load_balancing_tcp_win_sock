@@ -1,6 +1,7 @@
 #include "Configuration.hpp"
 #include "../Common/CriticalSectionWrapper.hpp"
 
+#pragma region WORKER PROCESSING DATA SERVICE
 unsigned int Process_Data(MeasurementData data) 
 {
     unsigned int threadId = (unsigned int)GetCurrentThreadId();
@@ -25,3 +26,4 @@ unsigned int Process_Data(MeasurementData data)
     else
         return -1;
 }
+#pragma endregion

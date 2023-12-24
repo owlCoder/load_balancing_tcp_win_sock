@@ -4,12 +4,16 @@
 #include <winsock2.h>
 #include "../Server/ThreadSafeQueue.hpp"
 
+/**
+ * @struct ThreadParams
+ * @brief Structure containing parameters for a thread.
+ */
 typedef struct ThreadParams {
-    SOCKET clientSocket;
-    Queue* queue;
-    int threadId;
-    bool* threadPoolClientsStatus;
-    CRITICAL_SECTION cs; /**< The actual Critical Section object. */
+    SOCKET clientSocket; /**< Socket for client communication */
+    Queue* queue; /**< Pointer to the queue for task management */
+    int threadId; /**< Thread identifier */
+    bool* threadPoolClientsStatus; /**< Pointer to array indicating client thread status */
+    CRITICAL_SECTION cs; /**< Critical section for synchronization */
 } ThreadParams;
 
 #endif // THREAD_PARAMS_HPP

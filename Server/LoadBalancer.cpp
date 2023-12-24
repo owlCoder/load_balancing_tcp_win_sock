@@ -1,5 +1,6 @@
 #include "LoadBalancer.hpp"
 
+#pragma region LOAD BALANCER SERVICE
 unsigned int __stdcall RunLoadBalancer(void* param) {
     Queue* queue = ((RunLoadBalancerThreadParams*)param)->queue;
 
@@ -22,3 +23,4 @@ unsigned int __stdcall RunLoadBalancer(void* param) {
 
     return 0;
 }
+#pragma endregion

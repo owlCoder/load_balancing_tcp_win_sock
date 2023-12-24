@@ -4,6 +4,7 @@
 #include "Configuration.hpp"
 #include "../Common/CriticalSectionWrapper.hpp"
 
+#pragma region THREDEX CLIENT PROCESS HANDLER
 // __stdcall -> Pushes parameters on the stack, in reverse order (right to left)
 unsigned int __stdcall ClientHandlerProc(LPVOID lpParameter) {
     __try {
@@ -21,7 +22,9 @@ unsigned int __stdcall ClientHandlerProc(LPVOID lpParameter) {
         return 1; // Return an error code indicating an exception occurred
     }
 }
+#pragma endregion
 
+#pragma region HANDLE CLIENT DATA
 void HandleClient(void* params) {
     ThreadParams* threadParams = (ThreadParams*)params;
 
@@ -88,7 +91,9 @@ void HandleClient(void* params) {
     // Exit critical section after changing
     LeaveCriticalSectionWrapper(&(threadParams->cs));
 }
+#pragma endregion
 
+#pragma region PROCESS CLIENT CONNECTION
 unsigned int __stdcall AcceptClientConnections(void* param) {
     AcceptClientThreadParams* params = (AcceptClientThreadParams*)param;
 
@@ -166,3 +171,4 @@ unsigned int __stdcall AcceptClientConnections(void* param) {
 
     return 0;
 }
+#pragma endregion
