@@ -58,6 +58,9 @@
     <ClInclude Include="BandwidthThreadParams.hpp">
       <Filter>Header Files\ThreadParameters</Filter>
     </ClInclude>
+    <ClInclude Include="WorkerParams.hpp">
+      <Filter>Header Files\ThreadParameters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WorkerThreadParams.hpp">

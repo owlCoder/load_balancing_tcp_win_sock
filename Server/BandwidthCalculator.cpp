@@ -63,7 +63,7 @@ unsigned int __stdcall BandwidthStatistics(void* param) {
             if(params->test_mode)
                 printf("\n[Bandwidth Statistics]: Currently in queue: %d samples\n", QueueSize(params->queue));
 
-            printf("[Bandwidth Statistics]: Bandwidth in the last %d seconds: %2d%%\n", interval, bandwidth);
+            //printf("[Bandwidth Statistics]: Bandwidth in the last %d seconds: %2d%%\n", interval, bandwidth);
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
             // Reset values for the next interval

@@ -9,6 +9,7 @@
 #include "../Common/ThreadParams.hpp"
 #include "../Common/AcceptClientThreadParams.hpp"
 #include "../Common/RunLoadBalancerThreadParams.hpp"
+#include "../Common/WorkerParams.hpp"
 #include "ClientHandler.hpp"
 #include "Worker.hpp"
 #include "LoadBalancer.hpp"

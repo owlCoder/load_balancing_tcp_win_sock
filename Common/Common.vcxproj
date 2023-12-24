@@ -141,6 +141,7 @@
     <ClInclude Include="RNGState.hpp" />
     <ClInclude Include="RunLoadBalancerThreadParams.hpp" />
     <ClInclude Include="ThreadParams.hpp" />
+    <ClInclude Include="WorkerParams.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WorkerThreadParams.hpp" />

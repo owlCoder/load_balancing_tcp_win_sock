@@ -103,14 +103,14 @@
     <ClInclude Include="StressTests.hpp">
       <Filter>StressTests</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BandwidthCalculator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Colors.hpp">
       <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="BandwidthCalculator.hpp">
+      <Filter>Header Files\LoadBalancer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

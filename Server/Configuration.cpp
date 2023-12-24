@@ -77,10 +77,8 @@ void StartServer() {
     SOCKET serverSocket;
 
     // THREAD POOL FOR WORKERS
-    HANDLE threadPoolWorkers[MAX_WORKERS_THREADS]{};
-    bool threadPoolWorkersStatus[MAX_WORKERS_THREADS]{};
-
-    ThreadParams* threadPoolWorkersParams[MAX_CLIENTS_THREADS]{};
+    HANDLE threadPoolWorkers[MAX_WORKERS_THREADS]{NULL};
+    bool threadPoolWorkersStatus[MAX_WORKERS_THREADS]{THREAD_FREE};
 
     // Multi client connections
     if (!InitializeServer(&queue, threadPoolClients, threadPoolClientsStatus, threadPoolWorkers, threadPoolWorkersStatus, &serverSocket)) {
@@ -116,48 +114,20 @@ void StartServer() {
         }
     }
     else {
+        WorkerParams wp = { &queue, threadPoolWorkersStatus };
+        InitializeCriticalSection(&(wp.cs));
+
         // Create thread pool
         for (int i = 0; i < MAX_WORKERS_THREADS; i++)
         {
-            threadPoolWorkersParams[i] = NULL;
-            threadPoolWorkers[i] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Worker, (void*)threadPoolWorkersParams, NULL, 0);
-            
-            if (threadPoolWorkers[i] == NULL)
-            {
-                while (--i > 0)
-                {
-                    // Close previosly created threads
-                    CloseHandle(threadPoolWorkers[i]);
-                }
-
-                // Clean up resources
-                CloseHandle((HANDLE)runLoadBalancerThread);
-                CloseHandle((HANDLE)acceptClientsThread);
-                CloseHandle((HANDLE)runBandwidthStatsThread);
-
-                // Clean up resources for client threads
-                for (int i = 0; i < MAX_CLIENTS_THREADS; ++i) {
-                    if (threadPoolClients[i] != NULL && threadPoolClients[i] != INVALID_HANDLE_VALUE) {
-                        CloseHandle(threadPoolClients[i]);
-                    }
-                }
-
-                // Clean up resources for worker threads
-                for (int i = 0; i < MAX_WORKERS_THREADS; ++i) {
-                    if (threadPoolWorkers[i] != NULL) {
-                        CloseHandle(threadPoolWorkers[i]);
-                    }
-                }
-
-                break;
-            }
+            threadPoolWorkers[i] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Worker, (LPVOID)&wp, NULL, 0);
         }
 
         // Wait for threads to finish
-        WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
+        // WaitForSingleObject((HANDLE)runLoadBalancerThread, INFINITE);
         WaitForSingleObject((HANDLE)runBandwidthStatsThread, INFINITE);
 
-        // Wait for all threads in the pool to complete (optional) PROVEIR JEL OVO OK POSLE
+        // Wait for all threads in the pool to complete
         WaitForMultipleObjects(MAX_WORKERS_THREADS, threadPoolWorkers, TRUE, INFINITE);
 
         // Clean up resources
@@ -179,6 +149,8 @@ void StartServer() {
             }
         }
 
+        // Delete critical section
+        DeleteCriticalSection(&(wp.cs));
     }
 
     // Clean up queue
