@@ -1,0 +1,187 @@
+// 
+// UMDH: Logtime 2023-12-15 22:08 - Machine=DESKTOP-OOA26T0 - PID=2148
+// 
+
+// OS version 10.0 
+// 
+// Preparing to dump heap allocations.
+// Only allocations for which the heap manager collected a stack are dumped. Allocations whithout stack are ignored.
+// The stack trace for an allocation is dumped as a list of addresses. They will be resolved to function names at compare time.
+// 
+// Connecting to process 2148 ...
+// Process 2148 opened handle=288.
+// 
+// Loaded modules and symbol info: 
+//    Base Size ModuleName*ModuleTimeStamp*PdbName*PdbId*PdbAge
+//        7FF7F9E20000    2E000 D:\FAKS\load_balancing\x64\Debug\Server.exe*657cb9d4*D:\FAKS\load_balancing\x64\Debug\Server.pdb*3df9ef5ee3cd43439e833e184daade1d*7
+//        7FFD39230000   217000 C:\Windows\SYSTEM32\ntdll.dll*bced4b82*ntdll.pdb*58a282c24aee7e03a8cf8cb0a782ce0c*1
+//        7FFD37B20000    C4000 C:\Windows\System32\KERNEL32.DLL*2e35230e*kernel32.pdb*6f7660385e7d8d33ed9b5a39b03822f0*1
+//        7FFD36990000   3A6000 C:\Windows\System32\KERNELBASE.dll*3091b6fb*kernelbase.pdb*f4b4fff5878cad6b2d379d9403c5e78d*1
+//        7FFD38970000    71000 C:\Windows\System32\WS2_32.dll*e911ea68*ws2_32.pdb*4fd99d5b8cef7e09c754ff8f32ad9a15*1
+//        7FFD39060000   117000 C:\Windows\System32\RPCRT4.dll*5d4e6a2f*rpcrt4.pdb*e9340f662d4fe1866766900e90ddf30e*1
+//        7FFCA7330000    2E000 C:\Windows\SYSTEM32\VCRUNTIME140D.dll*7ce75efb*D:\a\_work\1\s\binaries\amd64ret\bin\amd64\\vcruntime140d.amd64.pdb*2536f95cf96f69392ed65f01da60e611*1
+//        7FFC8BD60000   221000 C:\Windows\SYSTEM32\ucrtbased.dll*9501acb0*ucrtbased.pdb*953f541fca8ceb29d8358f870a3be899*2
+// 
+// Loaded modules: 
+//    Base Size Module
+//        7FF7F9E20000    2E000 D:\FAKS\load_balancing\x64\Debug\Server.exe
+//        7FFD39230000   217000 C:\Windows\SYSTEM32\ntdll.dll
+//        7FFD37B20000    C4000 C:\Windows\System32\KERNEL32.DLL
+//        7FFD36990000   3A6000 C:\Windows\System32\KERNELBASE.dll
+//        7FFD38970000    71000 C:\Windows\System32\WS2_32.dll
+//        7FFD39060000   117000 C:\Windows\System32\RPCRT4.dll
+//        7FFCA7330000    2E000 C:\Windows\SYSTEM32\VCRUNTIME140D.dll
+//        7FFC8BD60000   221000 C:\Windows\SYSTEM32\ucrtbased.dll
+// 
+// Process modules enumerated.
+// Debug library initialized ...
+7FFD39230000-7FFD39446FFF DBGHELP: ntdll - public symbols  
+        d:\debug\symbols\ntdll.pdb\58A282C24AEE7E03A8CF8CB0A782CE0C1\ntdll.pdb
+
+*- - - - - - - - - - Start of data for heap @ 2BA74DB0000 - - - - - - - - - -
+
+REQUESTED bytes + OVERHEAD at ADDRESS by BackTraceID
+     STACK if not already dumped.
+
+*- - - - - - - - - - Heap 2BA74DB0000 Hogs - - - - - - - - - -
+
+10 bytes + 10 at 2BA74DB0750 by BackTrace0
+20 bytes + 10 at 2BA74DB07A0 by BackTrace0
+50 bytes + 10 at 2BA74DB07D0 by BackTrace0
+20 bytes + 10 at 2BA74DB0830 by BackTrace0
+100 bytes + 10 at 2BA74DB0860 by BackTrace0
+F0 bytes + 10 at 2BA74DB0970 by BackTrace0
+1D8 bytes + 8 at 2BA74DB0A70 by BackTrace0
+1D8 bytes + 8 at 2BA74DB0C50 by BackTrace0
+48 bytes + 8 at 2BA74DB0E30 by BackTrace0
+4 bytes + 1C at 2BA74DB0E80 by BackTrace0
+10 bytes + 10 at 2BA74DB0EA0 by BackTrace0
+100 bytes + 10 at 2BA74DB0EC0 by BackTrace0
+100 bytes + 10 at 2BA74DB0FD0 by BackTrace0
+100 bytes + 10 at 2BA74DB10E0 by BackTrace0
+100 bytes + 10 at 2BA74DB11F0 by BackTrace0
+1B40 bytes + 10 at 2BA74DB1300 by BackTrace0
+3C bytes + 14 at 2BA74DB2E50 by BackTrace0
+62 bytes + E at 2BA74DB2EA0 by BackTrace0
+42 bytes + E at 2BA74DB2F10 by BackTrace0
+200 bytes + 10 at 2BA74DB2F60 by BackTrace0
+138 bytes + 8 at 2BA74DB3170 by BackTrace0
+50 bytes + 10 at 2BA74DB32B0 by BackTrace0
+50 bytes + 10 at 2BA74DB3310 by BackTrace0
+20 bytes + 10 at 2BA74DB3370 by BackTrace0
+780 bytes + 10 at 2BA74DB7480 by BackTrace0
+138 bytes + 8 at 2BA74DB7C10 by BackTrace0
+238 bytes + 8 at 2BA74DB7D50 by BackTrace0
+138 bytes + 8 at 2BA74DB7F90 by BackTrace0
+50 bytes + 10 at 2BA74DB80D0 by BackTrace0
+1D8 bytes + 8 at 2BA74DB8130 by BackTrace0
+F0 bytes + 10 at 2BA74DB8310 by BackTrace0
+3E bytes + 12 at 2BA74DB8500 by BackTrace0
+138 bytes + 8 at 2BA74DB8550 by BackTrace0
+50 bytes + 10 at 2BA74DB8690 by BackTrace0
+46 bytes + A at 2BA74DB86F0 by BackTrace0
+48 bytes + 8 at 2BA74DB8740 by BackTrace0
+18 bytes + 8 at 2BA74DB8790 by BackTrace0
+50 bytes + 10 at 2BA74DB87B0 by BackTrace0
+42 bytes + E at 2BA74DB8810 by BackTrace0
+400 bytes + 10 at 2BA74DB8860 by BackTrace0
+400 bytes + 10 at 2BA74DB8C70 by BackTrace0
+628 bytes + 8 at 2BA74DB9080 by BackTrace0
+50 bytes + 10 at 2BA74DB96B0 by BackTrace0
+50 bytes + 10 at 2BA74DB9710 by BackTrace0
+70 bytes + 10 at 2BA74DB9770 by BackTrace0
+100 bytes + 10 at 2BA74DB97F0 by BackTrace0
+100 bytes + 10 at 2BA74DB9900 by BackTrace0
+130 bytes + 10 at 2BA74DB9A10 by BackTrace0
+40 bytes + 10 at 2BA74DB9B50 by BackTrace0
+40 bytes + 10 at 2BA74DB9BA0 by BackTrace0
+100 bytes + 10 at 2BA74DB9BF0 by BackTrace0
+20 bytes + 10 at 2BA74DB9D00 by BackTrace0
+100 bytes + 10 at 2BA74DB9D30 by BackTrace0
+100 bytes + 10 at 2BA74DB9E40 by BackTrace0
+48 bytes + 8 at 2BA74DB9F50 by BackTrace0
+4 bytes + 2C at 2BA74DB9FA0 by BackTrace0
+138 bytes + 8 at 2BA74DB9FD0 by BackTrace0
+168 bytes + 8 at 2BA74DBA110 by BackTrace0
+70 bytes + 10 at 2BA74DBA280 by BackTrace0
+138 bytes + 8 at 2BA74DBA300 by BackTrace0
+50 bytes + 10 at 2BA74DBA440 by BackTrace0
+3E bytes + 12 at 2BA74DBA4A0 by BackTrace0
+20 bytes + 10 at 2BA74DBA5E0 by BackTrace0
+138 bytes + 8 at 2BA74DBA710 by BackTrace0
+50 bytes + 10 at 2BA74DBA850 by BackTrace0
+20 bytes + 10 at 2BA74DBA8B0 by BackTrace0
+138 bytes + 8 at 2BA74DBA9D0 by BackTrace0
+50 bytes + 10 at 2BA74DBAB10 by BackTrace0
+100 bytes + 10 at 2BA74DBAB70 by BackTrace0
+88 bytes + 8 at 2BA74DBAC80 by BackTrace0
+40 bytes + 10 at 2BA74DBAD10 by BackTrace0
+44 bytes + C at 2BA74DBAD60 by BackTrace0
+100 bytes + 10 at 2BA74DBB230 by BackTrace0
+58 bytes + 8 at 2BA74DBB340 by BackTrace0
+53 bytes + D at 2BA74DBB3A0 by BackTrace0
+9AE bytes + 12 at 2BA74DBB400 by BackTrace0
+20 bytes + 10 at 2BA74DBBDE0 by BackTrace0
+18 bytes + 8 at 2BA74DBBE10 by BackTrace0
+40 bytes + 10 at 2BA74DBBE30 by BackTrace0
+4C bytes + 14 at 2BA74DBBE80 by BackTrace0
+100 bytes + 10 at 2BA74DBBF70 by BackTrace0
+100 bytes + 10 at 2BA74DBC080 by BackTrace0
+100 bytes + 10 at 2BA74DBC190 by BackTrace0
+188 bytes + 8 at 2BA74DBC2A0 by BackTrace0
+7C4 bytes + C at 2BA74DBC430 by BackTrace0
+1234 bytes + C at 2BA74DBCC00 by BackTrace0
+25C bytes + 14 at 2BA74DBDE40 by BackTrace0
+25C bytes + 14 at 2BA74DBE0B0 by BackTrace0
+6C bytes + 14 at 2BA74DBE6C0 by BackTrace0
+5D bytes + 23 at 2BA74DBE740 by BackTrace0
+41 bytes + F at 2BA74DBE850 by BackTrace0
+5F bytes + 11 at 2BA74DBE8A0 by BackTrace0
+60 bytes + 10 at 2BA74DBE910 by BackTrace0
+5D bytes + 13 at 2BA74DBE980 by BackTrace0
+42 bytes + E at 2BA74DBE9F0 by BackTrace0
+47C bytes + 14 at 2BA74DBEA40 by BackTrace0
+72 bytes + E at 2BA74DBEED0 by BackTrace0
+A6 bytes + A at 2BA74DBEF50 by BackTrace0
+7D bytes + 13 at 2BA74DBF000 by BackTrace0
+67 bytes + 9 at 2BA74DBF090 by BackTrace0
+7B bytes + 15 at 2BA74DBF100 by BackTrace0
+47 bytes + 9 at 2BA74DBF190 by BackTrace0
+5D bytes + 13 at 2BA74DBF1E0 by BackTrace0
+9F bytes + 11 at 2BA74DBF250 by BackTrace0
+5D bytes + 13 at 2BA74DBF300 by BackTrace0
+62 bytes + E at 2BA74DBF370 by BackTrace0
+62 bytes + E at 2BA74DBF3E0 by BackTrace0
+5D bytes + 13 at 2BA74DBFC60 by BackTrace0
+72 bytes + E at 2BA74DBFCD0 by BackTrace0
+72 bytes + E at 2BA74DBFD50 by BackTrace0
+87 bytes + 9 at 2BA74DBFDD0 by BackTrace0
+1034 bytes + C at 2BA74DBFE60 by BackTrace0
+134 bytes + C at 2BA74DC0EA0 by BackTrace0
+234 bytes + C at 2BA74DC1180 by BackTrace0
+65 bytes + B at 2BA74DC13C0 by BackTrace0
+70 bytes + 10 at 2BA74DC1430 by BackTrace0
+65 bytes + B at 2BA74DC14B0 by BackTrace0
+51 bytes + F at 2BA74DC1520 by BackTrace0
+58 bytes + 8 at 2BA74DC1580 by BackTrace0
+66 bytes + A at 2BA74DC15E0 by BackTrace0
+5A bytes + 16 at 2BA74DC1650 by BackTrace0
+65 bytes + B at 2BA74DC16C0 by BackTrace0
+5C bytes + 14 at 2BA74DC1730 by BackTrace0
+470 bytes + 10 at 2BA74DC37D0 by BackTrace0
+1034 bytes + C at 2BA74DC3C50 by BackTrace0
+1034 bytes + C at 2BA74DC4C90 by BackTrace0
+
+*- - - - - - - - - - End of data for heap @ 2BA74DB0000 - - - - - - - - - -
+
+
+*- - - - - - - - - - Start of data for heap @ 2BA74B70000 - - - - - - - - - -
+
+REQUESTED bytes + OVERHEAD at ADDRESS by BackTraceID
+     STACK if not already dumped.
+
+*- - - - - - - - - - Heap 2BA74B70000 Hogs - - - - - - - - - -
+
+
+*- - - - - - - - - - End of data for heap @ 2BA74B70000 - - - - - - - - - -
+

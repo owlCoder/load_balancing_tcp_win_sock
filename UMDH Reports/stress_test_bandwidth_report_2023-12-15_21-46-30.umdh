@@ -1,0 +1,263 @@
+// 
+// UMDH: Logtime 2023-12-15 22:15 - Machine=DESKTOP-OOA26T0 - PID=12048
+// 
+
+// OS version 10.0 
+// 
+// Preparing to dump heap allocations.
+// Only allocations for which the heap manager collected a stack are dumped. Allocations whithout stack are ignored.
+// The stack trace for an allocation is dumped as a list of addresses. They will be resolved to function names at compare time.
+// 
+// Connecting to process 12048 ...
+// Process 12048 opened handle=260.
+// 
+// Loaded modules and symbol info: 
+//    Base Size ModuleName*ModuleTimeStamp*PdbName*PdbId*PdbAge
+//        7FF7F9E20000    2E000 D:\FAKS\load_balancing\x64\Debug\Server.exe*657cb9d4*D:\FAKS\load_balancing\x64\Debug\Server.pdb*3df9ef5ee3cd43439e833e184daade1d*7
+//        7FFD39230000   217000 C:\Windows\SYSTEM32\ntdll.dll*bced4b82*ntdll.pdb*58a282c24aee7e03a8cf8cb0a782ce0c*1
+//        7FFD37B20000    C4000 C:\Windows\System32\KERNEL32.DLL*2e35230e*kernel32.pdb*6f7660385e7d8d33ed9b5a39b03822f0*1
+//        7FFD36990000   3A6000 C:\Windows\System32\KERNELBASE.dll*3091b6fb*kernelbase.pdb*f4b4fff5878cad6b2d379d9403c5e78d*1
+//        7FFD38970000    71000 C:\Windows\System32\WS2_32.dll*e911ea68*ws2_32.pdb*4fd99d5b8cef7e09c754ff8f32ad9a15*1
+//        7FFD39060000   117000 C:\Windows\System32\RPCRT4.dll*5d4e6a2f*rpcrt4.pdb*e9340f662d4fe1866766900e90ddf30e*1
+//        7FFCF71B0000    2E000 C:\Windows\SYSTEM32\VCRUNTIME140D.dll*7ce75efb*D:\a\_work\1\s\binaries\amd64ret\bin\amd64\\vcruntime140d.amd64.pdb*2536f95cf96f69392ed65f01da60e611*1
+//        7FFCF2DB0000   221000 C:\Windows\SYSTEM32\ucrtbased.dll*9501acb0*ucrtbased.pdb*953f541fca8ceb29d8358f870a3be899*2
+//        7FFD35530000    18000 C:\Windows\SYSTEM32\kernel.appcore.dll*8aca7e42*Kernel.Appcore.pdb*7212e8986f3102b22ffed02bbd473f0a*1
+//        7FFD38810000    A7000 C:\Windows\System32\msvcrt.dll*657b2709*msvcrt.pdb*9decb4cb0673a2630140316f80fce498*1
+// 
+// Loaded modules: 
+//    Base Size Module
+//        7FF7F9E20000    2E000 D:\FAKS\load_balancing\x64\Debug\Server.exe
+//        7FFD39230000   217000 C:\Windows\SYSTEM32\ntdll.dll
+//        7FFD37B20000    C4000 C:\Windows\System32\KERNEL32.DLL
+//        7FFD36990000   3A6000 C:\Windows\System32\KERNELBASE.dll
+//        7FFD38970000    71000 C:\Windows\System32\WS2_32.dll
+//        7FFD39060000   117000 C:\Windows\System32\RPCRT4.dll
+//        7FFCF71B0000    2E000 C:\Windows\SYSTEM32\VCRUNTIME140D.dll
+//        7FFCF2DB0000   221000 C:\Windows\SYSTEM32\ucrtbased.dll
+//        7FFD35530000    18000 C:\Windows\SYSTEM32\kernel.appcore.dll
+//        7FFD38810000    A7000 C:\Windows\System32\msvcrt.dll
+// 
+// Process modules enumerated.
+// Debug library initialized ...
+7FFD39230000-7FFD39446FFF DBGHELP: ntdll - public symbols  
+        d:\debug\symbols\ntdll.pdb\58A282C24AEE7E03A8CF8CB0A782CE0C1\ntdll.pdb
+
+*- - - - - - - - - - Start of data for heap @ 1FB8EEB0000 - - - - - - - - - -
+
+REQUESTED bytes + OVERHEAD at ADDRESS by BackTraceID
+     STACK if not already dumped.
+
+*- - - - - - - - - - Heap 1FB8EEB0000 Hogs - - - - - - - - - -
+
+3C bytes + 34 at 1FB8EEB0770 by BackTrace0
+62 bytes + 3E at 1FB8EEB07E0 by BackTrace0
+100 bytes + 30 at 1FB8EEB0880 by BackTrace0
+F0 bytes + 30 at 1FB8EEB09B0 by BackTrace0
+1D8 bytes + 28 at 1FB8EEB0AD0 by BackTrace0
+1D8 bytes + 28 at 1FB8EEB0CD0 by BackTrace0
+48 bytes + 28 at 1FB8EEB0ED0 by BackTrace0
+4 bytes + 2C at 1FB8EEB0F40 by BackTrace0
+10 bytes + 30 at 1FB8EEB0F70 by BackTrace0
+100 bytes + 30 at 1FB8EEB0FB0 by BackTrace0
+100 bytes + 30 at 1FB8EEB10E0 by BackTrace0
+100 bytes + 30 at 1FB8EEB1210 by BackTrace0
+100 bytes + 30 at 1FB8EEB1340 by BackTrace0
+1B8C bytes + 34 at 1FB8EEB1470 by BackTrace0
+50 bytes + 30 at 1FB8EEB3030 by BackTrace0
+50 bytes + 30 at 1FB8EEB30B0 by BackTrace0
+4 bytes + 2C at 1FB8EEB3130 by BackTrace0
+200 bytes + 30 at 1FB8EEB3160 by BackTrace0
+138 bytes + 28 at 1FB8EEB3390 by BackTrace0
+138 bytes + 28 at 1FB8EEB34F0 by BackTrace0
+48 bytes + 28 at 1FB8EEB3650 by BackTrace0
+18 bytes + 38 at 1FB8EEB36C0 by BackTrace0
+20 bytes + 30 at 1FB8EEB3710 by BackTrace0
+20 bytes + 40 at 1FB8EEB3760 by BackTrace0
+780 bytes + 30 at 1FB8EEB8930 by BackTrace0
+238 bytes + 28 at 1FB8EEB90E0 by BackTrace0
+138 bytes + 28 at 1FB8EEB9340 by BackTrace0
+50 bytes + 30 at 1FB8EEB94A0 by BackTrace0
+42 bytes + 2E at 1FB8EEB9520 by BackTrace0
+1D8 bytes + 28 at 1FB8EEB9590 by BackTrace0
+F0 bytes + 30 at 1FB8EEB9790 by BackTrace0
+8C bytes + 34 at 1FB8EEB98B0 by BackTrace0
+138 bytes + 28 at 1FB8EEB99F0 by BackTrace0
+50 bytes + 30 at 1FB8EEB9B50 by BackTrace0
+46 bytes + 2A at 1FB8EEB9BD0 by BackTrace0
+10 bytes + 30 at 1FB8EEB9C40 by BackTrace0
+48 bytes + 28 at 1FB8EEB9C80 by BackTrace0
+18 bytes + 28 at 1FB8EEB9CF0 by BackTrace0
+50 bytes + 30 at 1FB8EEB9D30 by BackTrace0
+42 bytes + 2E at 1FB8EEB9DB0 by BackTrace0
+400 bytes + 30 at 1FB8EEB9E20 by BackTrace0
+400 bytes + 30 at 1FB8EEBA250 by BackTrace0
+628 bytes + 28 at 1FB8EEBA680 by BackTrace0
+50 bytes + 30 at 1FB8EEBACD0 by BackTrace0
+50 bytes + 30 at 1FB8EEBAD50 by BackTrace0
+70 bytes + 30 at 1FB8EEBADD0 by BackTrace0
+100 bytes + 30 at 1FB8EEBAE70 by BackTrace0
+100 bytes + 30 at 1FB8EEBAFA0 by BackTrace0
+130 bytes + 30 at 1FB8EEBB0D0 by BackTrace0
+40 bytes + 30 at 1FB8EEBB230 by BackTrace0
+40 bytes + 30 at 1FB8EEBB2A0 by BackTrace0
+100 bytes + 30 at 1FB8EEBB310 by BackTrace0
+20 bytes + 30 at 1FB8EEBB440 by BackTrace0
+100 bytes + 30 at 1FB8EEBB490 by BackTrace0
+100 bytes + 30 at 1FB8EEBB5C0 by BackTrace0
+138 bytes + 28 at 1FB8EEBB6F0 by BackTrace0
+50 bytes + 30 at 1FB8EEBB850 by BackTrace0
+3E bytes + 32 at 1FB8EEBB8D0 by BackTrace0
+B4 bytes + 2C at 1FB8EEBB940 by BackTrace0
+20 bytes + 30 at 1FB8EEBBA60 by BackTrace0
+B4 bytes + 2C at 1FB8EEBBAB0 by BackTrace0
+138 bytes + 28 at 1FB8EEBBBC0 by BackTrace0
+50 bytes + 30 at 1FB8EEBBD20 by BackTrace0
+3E bytes + 32 at 1FB8EEBBDA0 by BackTrace0
+88 bytes + 28 at 1FB8EEBBE10 by BackTrace0
+18 bytes + 28 at 1FB8EEBBEE0 by BackTrace0
+20 bytes + 30 at 1FB8EEBBF20 by BackTrace0
+B4 bytes + 2C at 1FB8EEBBF70 by BackTrace0
+138 bytes + 28 at 1FB8EEBC090 by BackTrace0
+50 bytes + 30 at 1FB8EEBC1F0 by BackTrace0
+20 bytes + 30 at 1FB8EEBC270 by BackTrace0
+88 bytes + 28 at 1FB8EEBC2C0 by BackTrace0
+20 bytes + 40 at 1FB8EEBC370 by BackTrace0
+138 bytes + 28 at 1FB8EEBC3D0 by BackTrace0
+50 bytes + 30 at 1FB8EEBC530 by BackTrace0
+100 bytes + 30 at 1FB8EEBC5B0 by BackTrace0
+100 bytes + 30 at 1FB8EEBC6E0 by BackTrace0
+100 bytes + 30 at 1FB8EEBC810 by BackTrace0
+100 bytes + 30 at 1FB8EEBC940 by BackTrace0
+100 bytes + 30 at 1FB8EEBCA70 by BackTrace0
+88 bytes + 28 at 1FB8EEBCBA0 by BackTrace0
+188 bytes + 28 at 1FB8EEBCC50 by BackTrace0
+18 bytes + 28 at 1FB8EEBCE00 by BackTrace0
+9AE bytes + 32 at 1FB8EEBCE60 by BackTrace0
+18 bytes + 28 at 1FB8EEBD840 by BackTrace0
+20 bytes + 30 at 1FB8EEBD880 by BackTrace0
+18 bytes + 38 at 1FB8EEBD8D0 by BackTrace0
+4C bytes + 34 at 1FB8EEBD920 by BackTrace0
+390 bytes + 30 at 1FB8EEBD9A0 by BackTrace0
+44 bytes + 2C at 1FB8EEBDD60 by BackTrace0
+70 bytes + 30 at 1FB8EEBDDD0 by BackTrace0
+18 bytes + 28 at 1FB8EEBDE70 by BackTrace0
+88 bytes + 28 at 1FB8EEBDED0 by BackTrace0
+40 bytes + 30 at 1FB8EEBDF80 by BackTrace0
+390 bytes + 30 at 1FB8EEBDFF0 by BackTrace0
+58 bytes + 28 at 1FB8EEBE3B0 by BackTrace0
+88 bytes + 28 at 1FB8EEBE430 by BackTrace0
+7C4 bytes + 2C at 1FB8EEBE4E0 by BackTrace0
+1234 bytes + 2C at 1FB8EEBECD0 by BackTrace0
+25C bytes + 34 at 1FB8EEC1F90 by BackTrace0
+25C bytes + 34 at 1FB8EEC2220 by BackTrace0
+244 bytes + 2C at 1FB8EEC24B0 by BackTrace0
+5D bytes + 33 at 1FB8EEC2720 by BackTrace0
+65 bytes + 2B at 1FB8EEC27B0 by BackTrace0
+70 bytes + 30 at 1FB8EEC2840 by BackTrace0
+65 bytes + 2B at 1FB8EEC28E0 by BackTrace0
+49 bytes + 37 at 1FB8EEC2970 by BackTrace0
+45 bytes + 2B at 1FB8EEC29F0 by BackTrace0
+51 bytes + 2F at 1FB8EEC2A60 by BackTrace0
+58 bytes + 28 at 1FB8EEC2AE0 by BackTrace0
+66 bytes + 2A at 1FB8EEC2B60 by BackTrace0
+40 bytes + 30 at 1FB8EEC2BF0 by BackTrace0
+5A bytes + 36 at 1FB8EEC2C60 by BackTrace0
+65 bytes + 2B at 1FB8EEC2CF0 by BackTrace0
+5C bytes + 34 at 1FB8EEC2D80 by BackTrace0
+41 bytes + 2F at 1FB8EEC3E40 by BackTrace0
+5F bytes + 31 at 1FB8EEC3EB0 by BackTrace0
+60 bytes + 30 at 1FB8EEC3F40 by BackTrace0
+5D bytes + 43 at 1FB8EEC3FD0 by BackTrace0
+7C4 bytes + 2C at 1FB8EEC4070 by BackTrace0
+138 bytes + 28 at 1FB8EEC4860 by BackTrace0
+138 bytes + 28 at 1FB8EEC49C0 by BackTrace0
+B4 bytes + 2C at 1FB8EEC4B20 by BackTrace0
+B4 bytes + 2C at 1FB8EEC4C00 by BackTrace0
+8C bytes + 34 at 1FB8EEC4D60 by BackTrace0
+53 bytes + 2D at 1FB8EEC4EA0 by BackTrace0
+6C bytes + 34 at 1FB8EEC4F20 by BackTrace0
+42 bytes + 2E at 1FB8EEC4FC0 by BackTrace0
+47C bytes + 34 at 1FB8EEC5030 by BackTrace0
+72 bytes + 2E at 1FB8EEC54E0 by BackTrace0
+A6 bytes + 2A at 1FB8EEC5580 by BackTrace0
+7D bytes + 33 at 1FB8EEC5650 by BackTrace0
+67 bytes + 29 at 1FB8EEC5700 by BackTrace0
+7B bytes + 35 at 1FB8EEC5790 by BackTrace0
+5D bytes + 33 at 1FB8EEC6070 by BackTrace0
+9F bytes + 31 at 1FB8EEC6100 by BackTrace0
+5D bytes + 33 at 1FB8EEC61D0 by BackTrace0
+62 bytes + 2E at 1FB8EEC6260 by BackTrace0
+62 bytes + 2E at 1FB8EEC62F0 by BackTrace0
+5D bytes + 33 at 1FB8EEC6380 by BackTrace0
+72 bytes + 2E at 1FB8EEC7440 by BackTrace0
+72 bytes + 2E at 1FB8EEC74E0 by BackTrace0
+87 bytes + 29 at 1FB8EEC7580 by BackTrace0
+1034 bytes + 2C at 1FB8EEC7630 by BackTrace0
+168 bytes + 28 at 1FB8EEC8690 by BackTrace0
+134 bytes + 2C at 1FB8EEC8820 by BackTrace0
+470 bytes + 30 at 1FB8EEC8980 by BackTrace0
+1034 bytes + 2C at 1FB8EEC8E20 by BackTrace0
+1034 bytes + 2C at 1FB8EEC9E80 by BackTrace0
+84 bytes + 2C at 1FB8EECAEE0 by BackTrace0
+7C4 bytes + 2C at 1FB8EED10B0 by BackTrace0
+7C4 bytes + 2C at 1FB8EED18A0 by BackTrace0
+7C4 bytes + 2C at 1FB8EED4590 by BackTrace0
+7C4 bytes + 2C at 1FB8EED4D80 by BackTrace0
+7C4 bytes + 2C at 1FB8EED6AA0 by BackTrace0
+B4 bytes + 2C at 1FB8EED7290 by BackTrace0
+7C4 bytes + 2C at 1FB8EED7BA0 by BackTrace0
+B4 bytes + 2C at 1FB8EED93F0 by BackTrace0
+B4 bytes + 2C at 1FB8EED94D0 by BackTrace0
+8C bytes + 34 at 1FB8EED9610 by BackTrace0
+8C bytes + 34 at 1FB8EED96D0 by BackTrace0
+8C bytes + 34 at 1FB8EED9790 by BackTrace0
+8C bytes + 34 at 1FB8EED9850 by BackTrace0
+B4 bytes + 2C at 1FB8EED9910 by BackTrace0
+B4 bytes + 2C at 1FB8EED99F0 by BackTrace0
+8C bytes + 34 at 1FB8EED9EE0 by BackTrace0
+7C4 bytes + 2C at 1FB8EED9FA0 by BackTrace0
+7C4 bytes + 2C at 1FB8EEDA790 by BackTrace0
+7C4 bytes + 2C at 1FB8EEDD060 by BackTrace0
+
+*- - - - - - - - - - End of data for heap @ 1FB8EEB0000 - - - - - - - - - -
+
+
+*- - - - - - - - - - Start of data for heap @ 1FB8D500000 - - - - - - - - - -
+
+REQUESTED bytes + OVERHEAD at ADDRESS by BackTraceID
+     STACK if not already dumped.
+
+*- - - - - - - - - - Heap 1FB8D500000 Hogs - - - - - - - - - -
+
+
+*- - - - - - - - - - End of data for heap @ 1FB8D500000 - - - - - - - - - -
+
+
+*- - - - - - - - - - Start of data for heap @ 1FB8F0B0000 - - - - - - - - - -
+
+REQUESTED bytes + OVERHEAD at ADDRESS by BackTraceID
+     STACK if not already dumped.
+
+*- - - - - - - - - - Heap 1FB8F0B0000 Hogs - - - - - - - - - -
+
+A0 bytes + 30 at 1FB8F0B0770 by BackTrace0
+18 bytes + 28 at 1FB8F0B0840 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B0880 by BackTrace0
+700 bytes + 30 at 1FB8F0B0B90 by BackTrace0
+28 bytes + 28 at 1FB8F0B12C0 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B1310 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B1620 by BackTrace0
+220 bytes + 30 at 1FB8F0B4570 by BackTrace0
+FC5 bytes + 2B at 1FB8F0B47C0 by BackTrace0
+100 bytes + 30 at 1FB8F0B57B0 by BackTrace0
+1000 bytes + 30 at 1FB8F0B58E0 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B6910 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B6C20 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B6F30 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B7240 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B7550 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B7860 by BackTrace0
+2E0 bytes + 30 at 1FB8F0B7B70 by BackTrace0
+
+*- - - - - - - - - - End of data for heap @ 1FB8F0B0000 - - - - - - - - - -
+
