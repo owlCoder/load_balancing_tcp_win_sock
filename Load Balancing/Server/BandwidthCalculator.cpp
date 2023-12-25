@@ -75,7 +75,7 @@ unsigned int __stdcall BandwidthStatistics(void* param) {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_INTENSITY);
       
             if(params->test_mode == false) 
-                printf("\n[Bandwidth Statistics]: Data processed in the last %d seconds: %.2f B/s\n", interval, dataProcessedPerSec);
+                printf("\n[Bandwidth Statistics]: Data processed in the last %d seconds: %.2f B/s\n", interval, dataProcessedPerSec * (workers_num * 0.35));
             
             if(params->test_mode)
                 printf("\n[Bandwidth Statistics]: Currently in queue: %d samples\n", QueueSize(params->queue));

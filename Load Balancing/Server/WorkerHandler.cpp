@@ -17,14 +17,14 @@ DWORD WINAPI Worker(LPVOID lpParam) {
         int index = -1;
         for (int i = 0; i < wp->max_workers; i++) {
             if (workers_status[i] == false) { // is thread free
-                workers_status[i] = true; // THREAD IS BUSY
                 index = i;
             }
         }
         LeaveCriticalSection(&(wp->cs));
 
         if (index == -1) continue; // no free threads
-
+        
+        workers_status[index] = true;
         unsigned int result = Process_Data(*data);
         workers_status[index] = false; // return thread to thread pool
         
